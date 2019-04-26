@@ -2,9 +2,13 @@ package com.zmm.paintingdays.http;
 
 
 import com.zmm.paintingdays.bean.BaseBean;
+import com.zmm.paintingdays.bean.PaintingsBean;
 import com.zmm.paintingdays.bean.UserBean;
 
+import java.util.List;
+
 import io.reactivex.Observable;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
@@ -78,5 +82,14 @@ public interface ApiService {
                                                @Query("verifyCode") String verifyCode);
 
 
+
+    /**
+     * -----------------------------画作相关界面接口-----------------------------
+     */
+
+    @GET("paintings/findAllPaintingsByUid")
+    Observable<BaseBean<List<PaintingsBean>>> findAllPaintingsByUid(@Query("uId") String uId,
+                                                                    @Query("page") int page,
+                                                                    @Query("size") int size);
 
 }
