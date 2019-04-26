@@ -3,6 +3,7 @@ package com.zmm.paintingdays.ui.fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ import com.zmm.paintingdays.dagger.component.HttpComponent;
 import com.zmm.paintingdays.dagger.module.PaintingsModule;
 import com.zmm.paintingdays.mvp.presenter.PaintingsPresenter;
 import com.zmm.paintingdays.mvp.presenter.contract.PaintingsContract;
+import com.zmm.paintingdays.ui.adapter.HistoryAdapter;
 import com.zmm.paintingdays.ui.adapter.HomeAdapter;
 import com.zmm.paintingdays.ui.widget.TitleBar;
 import com.zmm.paintingdays.utils.UIUtils;
@@ -41,14 +43,15 @@ import butterknife.Unbinder;
 public class HistoryFragment extends BaseFragment<PaintingsPresenter> implements OnRefreshLoadMoreListener, PaintingsContract.PaintingsView {
 
 
-    @Inject
-    HomeAdapter mHomeAdapter;
     @BindView(R.id.title_bar)
     TitleBar mTitleBar;
     @BindView(R.id.rv_list)
     RecyclerView mRvList;
     @BindView(R.id.refresh_Layout)
     SmartRefreshLayout mRefreshLayout;
+
+    @Inject
+    HistoryAdapter mHistoryAdapter;
 
     private int page = 0;
     private int size = 4;
@@ -88,8 +91,8 @@ public class HistoryFragment extends BaseFragment<PaintingsPresenter> implements
 
     private void initToolBar() {
 
-        mTitleBar.setTitle("今日画作");
-        mTitleBar.addAction(new TitleBar.ImageAction(R.drawable.shangchuan) {
+        mTitleBar.setTitle("作品集");
+        mTitleBar.addAction(new TitleBar.ImageAction(R.drawable.icon_calendar) {
             @Override
             public void performAction(View view) {
 
@@ -110,15 +113,15 @@ public class HistoryFragment extends BaseFragment<PaintingsPresenter> implements
     private void initRecyclerView() {
 
         mRvList.setHasFixedSize(true);
-        mRvList.setLayoutManager(new LinearLayoutManager(mContext));
+        mRvList.setLayoutManager(new GridLayoutManager(mContext, 2));
 
         //添加分割线
         mRvList.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL));
 
-        mRvList.setAdapter(mHomeAdapter);
+        mRvList.setAdapter(mHistoryAdapter);
 
         //适配器，设置空布局
-        mHomeAdapter.setEmptyView(R.layout.empty_content_home, mRvList);
+        mHistoryAdapter.setEmptyView(R.layout.empty_content_home, mRvList);
 
         mPresenter.findAllPaintingsByUid(mUserId,page,size,true);
     }
@@ -156,7 +159,7 @@ public class HistoryFragment extends BaseFragment<PaintingsPresenter> implements
     @Override
     public void findAllPaintingsByUidOnRefresh(List<PaintingsBean> paintingsBeanList) {
         mRefreshLayout.finishRefresh();
-        mHomeAdapter.setNewData(paintingsBeanList);
+        mHistoryAdapter.setNewData(paintingsBeanList);
     }
 
     @Override
@@ -164,7 +167,7 @@ public class HistoryFragment extends BaseFragment<PaintingsPresenter> implements
         mRefreshLayout.finishLoadMore();
 
         if(paintingsBeanList == null){}
-        mHomeAdapter.addData(paintingsBeanList);
+        mHistoryAdapter.addData(paintingsBeanList);
     }
 
     @Override
