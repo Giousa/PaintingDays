@@ -26,5 +26,7 @@ public interface PaintingsContract {
         void findAllPaintingsByUidOnRefresh(List<PaintingsBean> paintingsBeanList);
 
         void findAllPaintingsByUidOnLoadMore(List<PaintingsBean> paintingsBeanList);
+
+        void findAllPaintingsByUidFailure();
     }
 }

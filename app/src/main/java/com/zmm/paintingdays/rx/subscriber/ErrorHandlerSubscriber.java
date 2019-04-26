@@ -26,11 +26,10 @@ public abstract class ErrorHandlerSubscriber<T> extends DefaultSubscriber<T> {
     @Override
     public void onError(Throwable e) {
 
-
-//        e.printStackTrace();
         BaseException baseException =  mRxErrorHandler.handlerError(e);
 
         if(baseException == null){
+            mRxErrorHandler.showErrorMessage(new BaseException(404,"服务器繁忙，请稍后再试"));
             e.printStackTrace();
         } else {
             mRxErrorHandler.showErrorMessage(baseException);

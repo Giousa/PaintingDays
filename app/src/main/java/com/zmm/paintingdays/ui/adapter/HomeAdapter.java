@@ -11,6 +11,7 @@ import com.guanaj.easyswipemenulibrary.EasySwipeMenuLayout;
 import com.zmm.paintingdays.R;
 import com.zmm.paintingdays.bean.PaintingsBean;
 import com.zmm.paintingdays.config.CommonConfig;
+import com.zmm.paintingdays.utils.GlideUtils;
 import com.zmm.paintingdays.utils.UIUtils;
 import com.zmm.paintingdays.utils.VerificationUtils;
 
@@ -30,6 +31,19 @@ public class HomeAdapter extends BaseQuickAdapter<PaintingsBean,BaseViewHolder>{
     @Override
     protected void convert(BaseViewHolder helper, final PaintingsBean item) {
 
+        helper.setText(R.id.tv_item_time,item.getCreateTime());
+
+//        String title = item.getTitle();
+//        if(!TextUtils.isEmpty(title)){
+//            helper.setText(R.id.tv_item_title,title);
+//        }
+
+        helper.setText(R.id.tv_item_title,item.getTitle());
+
+
+        ImageView pic = helper.getView(R.id.iv_item_pic);
+
+        GlideUtils.loadImage(mContext,item.getPics(),pic);
 
     }
 }

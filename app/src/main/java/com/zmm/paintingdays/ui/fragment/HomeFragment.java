@@ -45,7 +45,7 @@ public class HomeFragment extends BaseFragment<PaintingsPresenter> implements On
     HomeAdapter mHomeAdapter;
 
     private int page = 0;
-    private int size = 2;
+    private int size = 4;
     private String mUserId;
 
     @Override
@@ -155,6 +155,15 @@ public class HomeFragment extends BaseFragment<PaintingsPresenter> implements On
     @Override
     public void findAllPaintingsByUidOnLoadMore(List<PaintingsBean> paintingsBeanList) {
         mRefreshLayout.finishLoadMore();
+
+        if(paintingsBeanList == null){}
         mHomeAdapter.addData(paintingsBeanList);
+    }
+
+    @Override
+    public void findAllPaintingsByUidFailure() {
+        mRefreshLayout.finishRefresh();
+        mRefreshLayout.finishLoadMore();
+
     }
 }

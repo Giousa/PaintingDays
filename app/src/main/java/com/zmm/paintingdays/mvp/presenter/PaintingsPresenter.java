@@ -43,6 +43,12 @@ public class PaintingsPresenter extends BasePresenter<PaintingsContract.IPaintin
                             mView.findAllPaintingsByUidOnLoadMore(paintingsBeanList);
                         }
                     }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        mView.findAllPaintingsByUidFailure();
+                    }
                 });
     }
 }
