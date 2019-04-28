@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar_content" />
+
+
+    <ImageView
+        android:id="@+id/iv_paintings_pic_select"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_size_200"
+        android:scaleType="fitCenter"
+        android:src="@drawable/icon_info_image_bg" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_size_10"
+        android:text="权限："
+        android:textSize="@dimen/sp_size_18" />
+
+    <RadioGroup
+        android:id="@+id/radio_group_spend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_size_10"
+        android:layout_marginRight="@dimen/dp_size_10"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="@dimen/dp_size_5">
+
+        <RadioButton
+            android:id="@+id/rb_jurisdiction_all"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="全部可见" />
+
+        <RadioButton
+            android:id="@+id/rb_jurisdiction_friend"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="好友可见" />
+
+        <RadioButton
+            android:checked="true"
+            android:id="@+id/rb_jurisdiction_me"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="自己可见" />
+
+    </RadioGroup>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp_size_10"
+            android:text="标题："
+            android:textSize="@dimen/sp_size_18" />
+
+        <EditText
+            android:id="@+id/et_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dp_size_10"
+            android:background="@android:drawable/edit_text"
+            android:enabled="true"
+            android:hint="请输入标题"
+            android:singleLine="true" />
+    </LinearLayout>
+
+
+    <EditText
+        android:id="@+id/et_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_size_10"
+        android:layout_marginRight="@dimen/dp_size_10"
+        android:background="@android:drawable/edit_text"
+        android:enabled="true"
+        android:gravity="top"
+        android:hint="请对画作进行简单描述..."
+        android:inputType="textMultiLine"
+        android:maxLines="8"
+        android:minLines="4"
+        android:scrollbars="vertical" />
+
+
+</LinearLayout>

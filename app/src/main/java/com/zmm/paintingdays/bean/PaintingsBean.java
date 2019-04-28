@@ -26,7 +26,7 @@ public class PaintingsBean implements Serializable {
 
     private int likes;//点赞数
 
-    private boolean jurisdiction;//权限
+    private int jurisdiction;//权限
 
     private String createTime;
 
@@ -94,11 +94,11 @@ public class PaintingsBean implements Serializable {
         this.likes = likes;
     }
 
-    public boolean isJurisdiction() {
+    public int isJurisdiction() {
         return jurisdiction;
     }
 
-    public void setJurisdiction(boolean jurisdiction) {
+    public void setJurisdiction(int jurisdiction) {
         this.jurisdiction = jurisdiction;
     }
 
