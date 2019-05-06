@@ -8,8 +8,11 @@ import com.zmm.paintingdays.bean.UserBean;
 import java.util.List;
 
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Query;
 
 /**
@@ -92,4 +95,13 @@ public interface ApiService {
                                                                     @Query("page") int page,
                                                                     @Query("size") int size);
 
+    @Multipart
+    @POST("paintings/addPaintings")
+    Observable<BaseBean<PaintingsBean>> addPaintings(@Query("uId")String uId,
+                                                     @Query("username")String username,
+                                                     @Query("title") String title,
+                                                     @Query("content")String content,
+                                                     @Query("tags")String tags,
+                                                     @Query("jurisdiction") int jurisdiction,
+                                                     @Part() MultipartBody.Part file);
 }

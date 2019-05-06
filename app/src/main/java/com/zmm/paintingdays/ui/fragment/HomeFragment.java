@@ -1,5 +1,6 @@
 package com.zmm.paintingdays.ui.fragment;
 
+import android.content.Intent;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +17,7 @@ import com.zmm.paintingdays.dagger.component.HttpComponent;
 import com.zmm.paintingdays.dagger.module.PaintingsModule;
 import com.zmm.paintingdays.mvp.presenter.PaintingsPresenter;
 import com.zmm.paintingdays.mvp.presenter.contract.PaintingsContract;
+import com.zmm.paintingdays.ui.activity.PaintingsInfoActivity;
 import com.zmm.paintingdays.ui.adapter.HomeAdapter;
 import com.zmm.paintingdays.ui.widget.TitleBar;
 import com.zmm.paintingdays.utils.UIUtils;
@@ -86,7 +88,7 @@ public class HomeFragment extends BaseFragment<PaintingsPresenter> implements On
             @Override
             public void performAction(View view) {
 
-//                mContext.startActivity(new Intent(mContext,DiaryInfoActivity.class));
+                mContext.startActivity(new Intent(mContext,PaintingsInfoActivity.class));
             }
         });
 
@@ -164,6 +166,11 @@ public class HomeFragment extends BaseFragment<PaintingsPresenter> implements On
     public void findAllPaintingsByUidFailure() {
         mRefreshLayout.finishRefresh();
         mRefreshLayout.finishLoadMore();
+
+    }
+
+    @Override
+    public void addPaintings(PaintingsBean paintingsBean) {
 
     }
 }

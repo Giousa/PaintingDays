@@ -176,4 +176,9 @@ public class HistoryFragment extends BaseFragment<PaintingsPresenter> implements
         mRefreshLayout.finishLoadMore();
 
     }
+
+    @Override
+    public void addPaintings(PaintingsBean paintingsBean) {
+
+    }
 }

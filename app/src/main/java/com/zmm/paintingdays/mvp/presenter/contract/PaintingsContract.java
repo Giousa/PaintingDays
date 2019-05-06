@@ -7,6 +7,7 @@ import com.zmm.paintingdays.mvp.view.BaseView;
 import java.util.List;
 
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
 
 /**
  * Description:
@@ -19,6 +20,8 @@ public interface PaintingsContract {
 
     interface IPaintingsModel{
         Observable<BaseBean<List<PaintingsBean>>> findAllPaintingsByUid(String uId,int page,int size);
+
+        Observable<BaseBean<PaintingsBean>> addPaintings(String uId,String username,String title,String content, String tags,int jurisdiction, MultipartBody.Part file);
     }
 
     interface PaintingsView extends BaseView{
@@ -28,5 +31,7 @@ public interface PaintingsContract {
         void findAllPaintingsByUidOnLoadMore(List<PaintingsBean> paintingsBeanList);
 
         void findAllPaintingsByUidFailure();
+
+        void addPaintings(PaintingsBean paintingsBean);
     }
 }
