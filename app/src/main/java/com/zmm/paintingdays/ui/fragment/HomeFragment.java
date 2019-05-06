@@ -173,4 +173,9 @@ public class HomeFragment extends BaseFragment<PaintingsPresenter> implements On
     public void addPaintingsSuccess(PaintingsBean paintingsBean) {
 
     }
+
+    @Override
+    public void addPaintingsFailure() {
+
+    }
 }

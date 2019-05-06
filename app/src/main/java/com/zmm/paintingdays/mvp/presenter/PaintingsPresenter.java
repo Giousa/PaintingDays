@@ -80,6 +80,12 @@ public class PaintingsPresenter extends BasePresenter<PaintingsContract.IPaintin
                     public void onNext(PaintingsBean paintingsBean) {
                         mView.addPaintingsSuccess(paintingsBean);
                     }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        mView.addPaintingsFailure();
+                    }
                 });
 
     }

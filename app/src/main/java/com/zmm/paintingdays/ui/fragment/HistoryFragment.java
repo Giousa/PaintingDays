@@ -181,4 +181,9 @@ public class HistoryFragment extends BaseFragment<PaintingsPresenter> implements
     public void addPaintingsSuccess(PaintingsBean paintingsBean) {
 
     }
+
+    @Override
+    public void addPaintingsFailure() {
+
+    }
 }

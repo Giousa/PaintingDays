@@ -33,5 +33,7 @@ public interface PaintingsContract {
         void findAllPaintingsByUidFailure();
 
         void addPaintingsSuccess(PaintingsBean paintingsBean);
+
+        void addPaintingsFailure();
     }
 }

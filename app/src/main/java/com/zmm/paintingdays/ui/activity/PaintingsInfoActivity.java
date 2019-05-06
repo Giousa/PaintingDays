@@ -14,6 +14,7 @@ import android.widget.RadioGroup;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.ui.ImageGridActivity;
+import com.mingle.widget.ShapeLoadingDialog;
 import com.zmm.paintingdays.R;
 import com.zmm.paintingdays.bean.PaintingsBean;
 import com.zmm.paintingdays.bean.UserBean;
@@ -80,6 +81,7 @@ public class PaintingsInfoActivity extends BaseActivity<PaintingsPresenter> impl
             "漫画", "风景", "动物", "人物", "场景", "少女", "萝莉", "积木", "建筑","怪兽","机械","模型","玩具");
     private Set<Integer> mSelectPosSet = new HashSet<>();
     private String mTags;
+    private ShapeLoadingDialog mShapeLoadingDialog;
 
     @Override
     protected int setLayout() {
@@ -126,6 +128,11 @@ public class PaintingsInfoActivity extends BaseActivity<PaintingsPresenter> impl
     }
 
     private void submit() {
+
+        mShapeLoadingDialog = new ShapeLoadingDialog(mContext);
+        mShapeLoadingDialog.setCanceledOnTouchOutside(false);
+        mShapeLoadingDialog.setLoadingText("加载中...");
+
         UserBean userBean = UIUtils.getUserBean();
         if (userBean != null) {
 
@@ -133,6 +140,7 @@ public class PaintingsInfoActivity extends BaseActivity<PaintingsPresenter> impl
                 String title = mEtPaintingsTitle.getText().toString();
                 String content = mEtPaintingsContent.getText().toString();
 
+                mShapeLoadingDialog.show();
                 mPresenter.addPaintings(userBean.getId(),userBean.getUsername(),title,content,mTags,mJurisdiction,mImages.get(0).path);
 
             } else {
@@ -237,7 +245,17 @@ public class PaintingsInfoActivity extends BaseActivity<PaintingsPresenter> impl
     @Override
     public void addPaintingsSuccess(PaintingsBean paintingsBean) {
         ToastUtils.SimpleToast("恭喜你，添加画作成功");
+        if(mShapeLoadingDialog != null){
+            mShapeLoadingDialog.dismiss();
+        }
         finish();
+    }
+
+    @Override
+    public void addPaintingsFailure() {
+        if(mShapeLoadingDialog != null){
+            mShapeLoadingDialog.dismiss();
+        }
     }
 
 }
