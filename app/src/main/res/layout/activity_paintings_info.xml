@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:focusable="true"
@@ -16,7 +17,7 @@
         android:layout_width="112dp"
         android:layout_height="200dp"
         android:layout_gravity="center"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
         android:src="@drawable/empty_paintings_bg" />
 
     <TextView
@@ -24,10 +25,10 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/dp_size_10"
         android:text="权限："
-        android:textSize="@dimen/sp_size_18" />
+        android:textSize="@dimen/sp_size_16" />
 
     <RadioGroup
-        android:id="@+id/radio_group_spend"
+        android:id="@+id/radio_group_jurisdiction"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_size_10"
@@ -63,7 +64,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_size_10"
+        android:layout_marginTop="@dimen/dp_size_5"
         android:orientation="horizontal">
 
         <TextView
@@ -71,9 +72,10 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/dp_size_10"
             android:text="标题："
-            android:textSize="@dimen/sp_size_18" />
+            android:textSize="@dimen/sp_size_16" />
 
         <EditText
+            android:textSize="@dimen/sp_size_14"
             android:id="@+id/et_paintings_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -82,6 +84,53 @@
             android:enabled="true"
             android:hint="请输入标题"
             android:singleLine="true" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/dp_size_5"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:id="@+id/ll_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:padding="@dimen/dp_size_10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="标签:"
+                android:textSize="@dimen/sp_size_16" />
+
+            <ImageView
+                android:id="@+id/iv_jurisdiction_popup"
+                android:layout_width="@dimen/dp_size_20"
+                android:layout_height="@dimen/dp_size_20"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/dp_size_20"
+                android:src="@drawable/icon_down" />
+        </RelativeLayout>
+
+
+        <EditText
+            android:id="@+id/et_jurisdiction_tags"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_size_20"
+            android:layout_marginRight="@dimen/dp_size_20"
+            android:background="@android:drawable/edit_text"
+            android:enabled="false"
+            android:gravity="top"
+            android:maxLines="1"
+            android:minLines="1"
+            android:scrollbars="vertical"
+            android:singleLine="true" />
+
     </LinearLayout>
 
 
@@ -97,9 +146,20 @@
         android:gravity="top"
         android:hint="请对画作进行简单描述..."
         android:inputType="textMultiLine"
-        android:maxLines="12"
-        android:minLines="8"
+        android:maxLines="10"
+        android:minLines="6"
         android:scrollbars="vertical" />
 
-
+    <Button
+        android:visibility="gone"
+        android:id="@+id/btn_paintings_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/smallBiggerMargin"
+        android:layout_marginRight="@dimen/smallBiggerMargin"
+        android:layout_marginTop="@dimen/bigMargin"
+        android:background="@drawable/bg_btn"
+        android:text="提交"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_size_18" />
 </LinearLayout>

@@ -89,12 +89,13 @@ dependencies {
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
 
     //上拉加载和加载更多
-//    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-andx-5'
-//    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-andx-5'
+
+    //    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-andx-5'
+
+    //    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-andx-5'
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-22'
     implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-22'
     implementation 'com.android.support:support-v4:28.0.0'
-
 
     //    implementation 'com.android.support:support-v4:28.0.0'
 
@@ -103,4 +104,12 @@ dependencies {
 
     //状态栏
     implementation 'com.yanzhenjie:sofia:1.0.5'
+    //图片加载
+    implementation project(':imagepicker')
+
+    //popup弹出框
+    implementation 'com.github.zyyoona7:EasyPopup:1.1.2'
+
+    //标签
+    implementation 'com.hyman:flowlayout-lib:1.1.2'
 }

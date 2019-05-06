@@ -26,7 +26,7 @@ public class PaintingsBean implements Serializable {
 
     private int likes;//点赞数
 
-    private int jurisdiction;//权限
+    private int jurisdiction;//权限(0:自己可见 1：好友可见 2：全部可见)
 
     private String createTime;
 
