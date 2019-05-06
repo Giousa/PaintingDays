@@ -30,7 +30,9 @@ import com.zmm.paintingdays.utils.UIUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -65,6 +67,8 @@ public class PaintingsInfoActivity extends BaseActivity<PaintingsPresenter> impl
     Button mBtnPaintingsSubmit;
     @BindView(R.id.ll_root)
     LinearLayout mLlRoot;
+    @BindView(R.id.et_jurisdiction_tags)
+    EditText mEtJurisdictionTags;
 
 
     private ArrayList<ImageItem> mImages;
@@ -72,8 +76,10 @@ public class PaintingsInfoActivity extends BaseActivity<PaintingsPresenter> impl
     //(0:自己可见 1：好友可见 2：全部可见)
     private int mJurisdiction = 0;
 
-    private List<String> mPersonalList = Arrays.asList("天气", "早餐", "午餐", "晚餐", "零食", "打发时间", "回家", "游戏", "聚餐", "购物", "逛街", "锻炼", "程序", "宠物", "旅游", "拍摄", "保密");
-
+    private List<String> mTagList = Arrays.asList("原创", "临摹", "描边", "草稿", "填色", "线稿", "部位",
+            "漫画", "风景", "动物", "人物", "场景", "少女", "萝莉", "积木", "建筑","怪兽","机械","模型","玩具");
+    private Set<Integer> mSelectPosSet = new HashSet<>();
+    private String mTags;
 
     @Override
     protected int setLayout() {
@@ -108,7 +114,34 @@ public class PaintingsInfoActivity extends BaseActivity<PaintingsPresenter> impl
                 finish();
             }
         });
+        mTitleBar.setActionTextColor(UIUtils.getResources().getColor(R.color.white));
+        mTitleBar.addAction(new TitleBar.TextAction("上传") {
+            @Override
+            public void performAction(View view) {
+                submit();
 
+            }
+        });
+
+    }
+
+    private void submit() {
+        UserBean userBean = UIUtils.getUserBean();
+        if (userBean != null) {
+
+            if (mImages != null && mImages.size() > 0) {
+                String title = mEtPaintingsTitle.getText().toString();
+                String content = mEtPaintingsContent.getText().toString();
+
+                mPresenter.addPaintings(userBean.getId(),userBean.getUsername(),title,content,mTags,mJurisdiction,mImages.get(0).path);
+
+            } else {
+                ToastUtils.SimpleToast("请选择图片");
+            }
+
+        } else {
+            ToastUtils.SimpleToast("请登录账户");
+        }
     }
 
     private void initJurisdiction() {
@@ -136,42 +169,30 @@ public class PaintingsInfoActivity extends BaseActivity<PaintingsPresenter> impl
 
     }
 
-    @OnClick({R.id.iv_paintings_pic_select, R.id.btn_paintings_submit, R.id.iv_jurisdiction_popup})
+    @OnClick({R.id.iv_paintings_pic_select, R.id.iv_jurisdiction_popup})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_paintings_pic_select:
                 ImagePicker.getInstance().setMultiMode(false);
-                ImagePicker.getInstance().setCrop(true);
+                //这里，我们就不截图了，直接选中即可
+                ImagePicker.getInstance().setCrop(false);
                 Intent intent = new Intent(mContext, ImageGridActivity.class);
                 startActivityForResult(intent, 100);
                 break;
-            case R.id.btn_paintings_submit:
-
-                UserBean userBean = UIUtils.getUserBean();
-                if (userBean != null) {
-
-                    if (mImages != null && mImages.size() > 0) {
-
-
-                    } else {
-                        ToastUtils.SimpleToast("请选择图片");
-                    }
-
-                } else {
-                    ToastUtils.SimpleToast("请登录账户");
-                }
-
-                break;
 
             case R.id.iv_jurisdiction_popup:
-                CustomePopup diaryTitlePopup = CustomePopup.create(mPersonalList)
+                CustomePopup diaryTitlePopup = CustomePopup.create(mTagList, mSelectPosSet)
                         .setContext(this)
                         .apply();
 
                 diaryTitlePopup.showAtLocation(mLlRoot, Gravity.BOTTOM, 0, 0);
                 diaryTitlePopup.setOnPopupClickListener(new CustomePopup.OnPopupClickListener() {
                     @Override
-                    public void OnPopupClick(String title) {
+                    public void OnPopupClick(String tags, Set<Integer> selectPosSet) {
+                        System.out.println("tags = " + tags);
+                        mTags = tags;
+                        mSelectPosSet = selectPosSet;
+                        mEtJurisdictionTags.setText(tags);
                     }
                 });
                 break;
@@ -214,8 +235,9 @@ public class PaintingsInfoActivity extends BaseActivity<PaintingsPresenter> impl
     }
 
     @Override
-    public void addPaintings(PaintingsBean paintingsBean) {
-
+    public void addPaintingsSuccess(PaintingsBean paintingsBean) {
+        ToastUtils.SimpleToast("恭喜你，添加画作成功");
+        finish();
     }
 
 }

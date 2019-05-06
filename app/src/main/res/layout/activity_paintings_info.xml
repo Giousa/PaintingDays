@@ -107,12 +107,12 @@
                 android:textSize="@dimen/sp_size_16" />
 
             <ImageView
+                android:layout_marginRight="@dimen/dp_size_20"
                 android:id="@+id/iv_jurisdiction_popup"
-                android:layout_width="@dimen/dp_size_20"
-                android:layout_height="@dimen/dp_size_20"
+                android:layout_width="@dimen/dp_size_30"
+                android:layout_height="@dimen/dp_size_30"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/dp_size_20"
                 android:src="@drawable/icon_down" />
         </RelativeLayout>
 

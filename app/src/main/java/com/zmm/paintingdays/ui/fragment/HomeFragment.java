@@ -170,7 +170,7 @@ public class HomeFragment extends BaseFragment<PaintingsPresenter> implements On
     }
 
     @Override
-    public void addPaintings(PaintingsBean paintingsBean) {
+    public void addPaintingsSuccess(PaintingsBean paintingsBean) {
 
     }
 }

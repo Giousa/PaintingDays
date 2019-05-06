@@ -1,20 +1,18 @@
 package com.zmm.paintingdays.ui.widget;
 
-import android.util.ArraySet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
 import com.zmm.paintingdays.R;
-import com.zmm.paintingdays.utils.ToastUtils;
 import com.zmm.paintingdays.utils.UIUtils;
 import com.zyyoona7.popup.BasePopup;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -30,15 +28,16 @@ public class CustomePopup extends BasePopup<CustomePopup> {
     private OnPopupClickListener mOnPopupClickListener;
     private TagFlowLayout mFlowLayout;
 
-    private String mSelectVals;
+    private static Set<Integer> mSelectPosSet = new HashSet<>();
 
     public void setOnPopupClickListener(OnPopupClickListener onPopupClickListener) {
         mOnPopupClickListener = onPopupClickListener;
     }
 
-    public static CustomePopup create(List<String> stringList){
+    public static CustomePopup create(List<String> stringList,Set<Integer> selectPosSet){
 
         mStrings = stringList;
+        mSelectPosSet = selectPosSet;
         return new CustomePopup();
     }
 
@@ -57,45 +56,45 @@ public class CustomePopup extends BasePopup<CustomePopup> {
 
         mFlowLayout = findViewById(R.id.id_flowlayout);
 
-        mFlowLayout.setAdapter(new TagAdapter<String>(mStrings) {
+        TagAdapter<String> tagAdapter = new TagAdapter<String>(mStrings) {
             @Override
             public View getView(FlowLayout parent, int position, String s) {
                 TextView tv = (TextView) mInflater.inflate(R.layout.tv, mFlowLayout, false);
                 tv.setText(s);
                 return tv;
             }
-        });
+        };
 
+        if(mSelectPosSet != null && mSelectPosSet.size() > 0){
+            tagAdapter.setSelectedList(mSelectPosSet);
+        }
+        mFlowLayout.setAdapter(tagAdapter);
 
-        mFlowLayout.setOnTagClickListener(new TagFlowLayout.OnTagClickListener()
-        {
-            @Override
-            public boolean onTagClick(View view, int position, FlowLayout parent)
-            {
-                ToastUtils.SimpleToast(mStrings.get(position));
-                return true;
-            }
-        });
-
-
-        mFlowLayout.setOnSelectListener(new TagFlowLayout.OnSelectListener()
-        {
-            @Override
-            public void onSelected(Set<Integer> selectPosSet)
-            {
-                mSelectVals = selectPosSet.toString();
-                ToastUtils.SimpleToast(selectPosSet.toString());
-            }
-        });
     }
 
     @Override
     protected void onPopupWindowDismiss() {
         super.onPopupWindowDismiss();
-        System.out.println("隐藏后，显示选中的标签："+mSelectVals);
+
+        mSelectPosSet = mFlowLayout.getSelectedList();
+
+        if(mSelectPosSet != null && mSelectPosSet.size() > 0){
+
+            StringBuffer sb = new StringBuffer();
+            for (Integer pot:mSelectPosSet) {
+                sb.append(mStrings.get(pot)+",");
+            }
+            sb.deleteCharAt(sb.length() - 1);
+
+            if(mOnPopupClickListener != null){
+                mOnPopupClickListener.OnPopupClick(sb.toString(),mSelectPosSet);
+            }
+        }
+
+
     }
 
     public interface OnPopupClickListener{
-        void OnPopupClick(String title);
+        void OnPopupClick(String tags,Set<Integer> selectPosSet);
     }
 }

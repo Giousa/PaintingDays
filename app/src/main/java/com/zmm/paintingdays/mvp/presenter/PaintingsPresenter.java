@@ -5,9 +5,14 @@ import com.zmm.paintingdays.mvp.presenter.contract.PaintingsContract;
 import com.zmm.paintingdays.rx.RxHttpResponseCompat;
 import com.zmm.paintingdays.rx.subscriber.ErrorHandlerSubscriber;
 
+import java.io.File;
 import java.util.List;
 
 import javax.inject.Inject;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 /**
  * Description:
@@ -50,5 +55,32 @@ public class PaintingsPresenter extends BasePresenter<PaintingsContract.IPaintin
                         mView.findAllPaintingsByUidFailure();
                     }
                 });
+    }
+
+    /**
+     * 添加画作
+     * @param id
+     * @param username
+     * @param title
+     * @param content
+     * @param tags
+     * @param jurisdiction
+     * @param path
+     */
+    public void addPaintings(String id, String username, String title, String content, String tags, int jurisdiction, String path) {
+        File file= new File(path);
+
+        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        MultipartBody.Part part = MultipartBody.Part.createFormData("uploadFile", file.getName(), requestFile);
+
+        mModel.addPaintings(id,username,title,content,tags,jurisdiction,part)
+                .compose(RxHttpResponseCompat.<PaintingsBean>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<PaintingsBean>() {
+                    @Override
+                    public void onNext(PaintingsBean paintingsBean) {
+                        mView.addPaintingsSuccess(paintingsBean);
+                    }
+                });
+
     }
 }
