@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/dp_size_20"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:textColor="@color/black"
+        android:textSize="@dimen/sp_size_16"
+        android:id="@+id/tv_item_time"
+        android:layout_marginTop="@dimen/dp_size_5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="2019-04-26"/>
+
+    <TextView
+        android:textSize="@dimen/sp_size_14"
+        android:id="@+id/tv_item_title"
+        android:layout_marginTop="@dimen/dp_size_5"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="这个是标题"/>
+
+    <TextView
+        android:textSize="@dimen/sp_size_12"
+        android:id="@+id/tv_item_content"
+        android:layout_marginTop="@dimen/dp_size_5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="这个是内容，这个是内容,这个是内容，这个是内容,这个是内容，这个是内容,这个是内容，这个是内容,这个是内容，这个是内容"/>
+
+</LinearLayout>

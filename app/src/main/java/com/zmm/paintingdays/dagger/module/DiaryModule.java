@@ -3,6 +3,7 @@ package com.zmm.paintingdays.dagger.module;
 import com.zmm.paintingdays.http.ApiService;
 import com.zmm.paintingdays.mvp.model.DiaryModel;
 import com.zmm.paintingdays.mvp.presenter.contract.DiaryContract;
+import com.zmm.paintingdays.ui.adapter.DiaryAdapter;
 
 import dagger.Module;
 import dagger.Provides;
@@ -33,6 +34,11 @@ public class DiaryModule {
     public DiaryContract.IDiaryModel provideDiaryModel(ApiService apiService){
 
         return new DiaryModel(apiService);
+    }
+
+    @Provides
+    public DiaryAdapter provideDiaryAdapter(){
+        return new DiaryAdapter();
     }
 
 }

@@ -20,10 +20,13 @@ import com.zmm.paintingdays.dagger.module.DiaryModule;
 import com.zmm.paintingdays.mvp.presenter.DiaryPresenter;
 import com.zmm.paintingdays.mvp.presenter.contract.DiaryContract;
 import com.zmm.paintingdays.ui.activity.PaintingsInfoActivity;
+import com.zmm.paintingdays.ui.adapter.DiaryAdapter;
 import com.zmm.paintingdays.ui.widget.TitleBar;
 import com.zmm.paintingdays.utils.UIUtils;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 
@@ -41,6 +44,9 @@ public class DiaryFragment extends BaseFragment<DiaryPresenter> implements Diary
     RecyclerView mRvList;
     @BindView(R.id.refresh_Layout)
     SmartRefreshLayout mRefreshLayout;
+
+    @Inject
+    DiaryAdapter mDiaryAdapter;
 
 
     private int page = 0;
@@ -82,7 +88,7 @@ public class DiaryFragment extends BaseFragment<DiaryPresenter> implements Diary
     private void initToolBar() {
 
         mTitleBar.setTitle("日记");
-        mTitleBar.addAction(new TitleBar.ImageAction(R.drawable.shangchuan) {
+        mTitleBar.addAction(new TitleBar.ImageAction(R.drawable.icon_add) {
             @Override
             public void performAction(View view) {
 
@@ -113,18 +119,18 @@ public class DiaryFragment extends BaseFragment<DiaryPresenter> implements Diary
 
     private void initRecyclerView() {
 
-//        mRvList.setHasFixedSize(true);
-//        mRvList.setLayoutManager(new LinearLayoutManager(mContext));
-//
-//        //添加分割线
-//        mRvList.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL));
-//
-//        mRvList.setAdapter(mHomeAdapter);
-//
-//        //适配器，设置空布局
-//        mHomeAdapter.setEmptyView(R.layout.empty_content_home, mRvList);
-//
-//        mPresenter.findAllPaintingsByUid(mUserId,page,size,true);
+        mRvList.setHasFixedSize(true);
+        mRvList.setLayoutManager(new LinearLayoutManager(mContext));
+
+        //添加分割线
+        mRvList.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL));
+
+        mRvList.setAdapter(mDiaryAdapter);
+
+        //适配器，设置空布局
+        mDiaryAdapter.setEmptyView(R.layout.empty_content, mRvList);
+
+        mPresenter.findAllDiaryByUid(mUserId,page,size,true);
     }
 
     //判断，Only添加成功后返回，则刷新界面，否则皆不刷新
@@ -142,7 +148,7 @@ public class DiaryFragment extends BaseFragment<DiaryPresenter> implements Diary
     @Override
     public void findAllDiaryByUidOnRefresh(List<DiaryBean> diaryBeanList) {
         mRefreshLayout.finishRefresh();
-//        mHomeAdapter.setNewData(paintingsBeanList);
+        mDiaryAdapter.setNewData(diaryBeanList);
         if(diaryBeanList != null && diaryBeanList.size() > 0){
             page = 1;
         }
@@ -154,7 +160,7 @@ public class DiaryFragment extends BaseFragment<DiaryPresenter> implements Diary
 
         if(diaryBeanList != null && diaryBeanList.size() > 0){
             page++;
-//            mHomeAdapter.addData(diaryBeanList);
+            mDiaryAdapter.addData(diaryBeanList);
         }
     }
 
