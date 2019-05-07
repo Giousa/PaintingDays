@@ -1,18 +1,14 @@
 package com.zmm.paintingdays.ui.fragment;
 
 
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.zmm.paintingdays.R;
 import com.zmm.paintingdays.dagger.component.HttpComponent;
-import com.zmm.paintingdays.ui.activity.PaintingsInfoActivity;
 import com.zmm.paintingdays.ui.widget.TitleBar;
 
 import butterknife.BindView;
-import butterknife.Unbinder;
 
 /**
  * Description:
@@ -20,7 +16,7 @@ import butterknife.Unbinder;
  * Date:2018/11/8
  * Email:65489469@qq.com
  */
-public class HotFragment extends BaseFragment {
+public class DiaryFragment extends BaseFragment {
 
     @BindView(R.id.title_bar)
     TitleBar mTitleBar;
@@ -28,11 +24,10 @@ public class HotFragment extends BaseFragment {
     RecyclerView mRvList;
     @BindView(R.id.refresh_Layout)
     SmartRefreshLayout mRefreshLayout;
-    Unbinder unbinder;
 
     @Override
     protected int setLayout() {
-        return R.layout.fragment_hot;
+        return R.layout.fragment_diary;
     }
 
     @Override
@@ -49,6 +44,6 @@ public class HotFragment extends BaseFragment {
 
     private void initToolBar() {
 
-        mTitleBar.setTitle("热点");
+        mTitleBar.setTitle("日记");
     }
 }

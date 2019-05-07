@@ -26,7 +26,7 @@ public class FragmentFactory {
                     fragment = new HistoryFragment();
                     break;
                 case 2:
-                    fragment = new HotFragment();
+                    fragment = new DiaryFragment();
                     break;
                 case 3:
                     fragment = new MyFragment();
