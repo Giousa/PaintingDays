@@ -145,7 +145,7 @@ public class HistoryFragment extends BaseFragment<PaintingsPresenter> implements
     @Override
     public void onLoadMore(RefreshLayout refreshLayout) {
         System.out.println("加载更多");
-        page++;
+//        page++;
         mPresenter.findAllPaintingsByUid(mUserId,page,size,false);
     }
 
@@ -160,14 +160,19 @@ public class HistoryFragment extends BaseFragment<PaintingsPresenter> implements
     public void findAllPaintingsByUidOnRefresh(List<PaintingsBean> paintingsBeanList) {
         mRefreshLayout.finishRefresh();
         mHistoryAdapter.setNewData(paintingsBeanList);
+        if(paintingsBeanList != null && paintingsBeanList.size() > 0){
+            page = 1;
+        }
     }
 
     @Override
     public void findAllPaintingsByUidOnLoadMore(List<PaintingsBean> paintingsBeanList) {
         mRefreshLayout.finishLoadMore();
 
-        if(paintingsBeanList == null){}
-        mHistoryAdapter.addData(paintingsBeanList);
+        if(paintingsBeanList != null && paintingsBeanList.size() > 0){
+            page++;
+            mHistoryAdapter.addData(paintingsBeanList);
+        }
     }
 
     @Override

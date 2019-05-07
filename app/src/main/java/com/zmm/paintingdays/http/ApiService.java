@@ -2,9 +2,11 @@ package com.zmm.paintingdays.http;
 
 
 import com.zmm.paintingdays.bean.BaseBean;
+import com.zmm.paintingdays.bean.DiaryBean;
 import com.zmm.paintingdays.bean.PaintingsBean;
 import com.zmm.paintingdays.bean.UserBean;
 
+import java.util.Date;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -136,4 +138,36 @@ public interface ApiService {
                                                      @Query("tags")String tags,
                                                      @Query("jurisdiction") int jurisdiction,
                                                      @Part() MultipartBody.Part file);
+
+
+    /**
+     * -----------------------------相关界面接口-----------------------------
+     */
+
+    @GET("diary/addDiary")
+    Observable<BaseBean<DiaryBean>> addDiary(@Query("uId")String uId,
+                                             @Query("title")String title,
+                                             @Query("content")String content,
+                                             @Query("createTime")Date createTime);
+
+
+    @GET("diary/updateDiary")
+    Observable<BaseBean<DiaryBean>> updateDiary(@Body DiaryBean diaryBean);
+
+
+    @GET("diary/deleteDiary/{id}")
+    Observable<BaseBean<String>> deleteDiary(@Path("id")String id);
+
+
+    @GET("diary/findDiaryById/{id}")
+    Observable<BaseBean<DiaryBean>> findDiaryById(@Path("id")String id);
+
+
+    @GET("diary/findAllDiaryByUid")
+    Observable<BaseBean<List<DiaryBean>>> findAllDiaryByUid(@Query("uId")String uId,
+                                                      @Query("page")int page,
+                                                      @Query("size")int size);
+
+
+
 }

@@ -135,24 +135,9 @@ public class HomeFragment extends BaseFragment<PaintingsPresenter> implements On
 
 
     @Override
-    public void onResume() {
-        super.onResume();
-        System.out.println("HomeFragment onResume");
-
-    }
-
-    @Override
-    protected void onRefresh() {
-        super.onRefresh();
-        System.out.println("HomeFragment onRefresh");
-
-
-    }
-
-    @Override
     public void onLoadMore(RefreshLayout refreshLayout) {
         System.out.println("加载更多");
-        page++;
+//        page++;
         mPresenter.findAllPaintingsByUid(mUserId,page,size,false);
     }
 
@@ -165,16 +150,22 @@ public class HomeFragment extends BaseFragment<PaintingsPresenter> implements On
 
     @Override
     public void findAllPaintingsByUidOnRefresh(List<PaintingsBean> paintingsBeanList) {
+
         mRefreshLayout.finishRefresh();
         mHomeAdapter.setNewData(paintingsBeanList);
+        if(paintingsBeanList != null && paintingsBeanList.size() > 0){
+            page = 1;
+        }
     }
 
     @Override
     public void findAllPaintingsByUidOnLoadMore(List<PaintingsBean> paintingsBeanList) {
         mRefreshLayout.finishLoadMore();
 
-        if(paintingsBeanList == null){}
-        mHomeAdapter.addData(paintingsBeanList);
+        if(paintingsBeanList != null && paintingsBeanList.size() > 0){
+            page ++;
+            mHomeAdapter.addData(paintingsBeanList);
+        }
     }
 
     @Override
