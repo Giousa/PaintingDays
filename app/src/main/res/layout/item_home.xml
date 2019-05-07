@@ -7,8 +7,7 @@
 
 
     <TextView
-        android:textStyle="bold"
-        android:textSize="@dimen/sp_size_18"
+        android:textSize="@dimen/sp_size_16"
         android:id="@+id/tv_item_time"
         android:layout_marginTop="@dimen/dp_size_5"
         android:layout_width="match_parent"
@@ -16,7 +15,7 @@
         android:text="2019-04-26"/>
 
     <TextView
-        android:textSize="@dimen/sp_size_16"
+        android:textSize="@dimen/sp_size_14"
         android:id="@+id/tv_item_title"
         android:layout_marginTop="@dimen/dp_size_5"
         android:gravity="center"
@@ -28,9 +27,9 @@
         android:layout_marginTop="@dimen/dp_size_5"
         android:layout_gravity="center"
         android:id="@+id/iv_item_pic"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="300dp"
-        android:scaleType="centerCrop"
+        android:scaleType="center"
         android:src="@drawable/default_bg" />
 
 

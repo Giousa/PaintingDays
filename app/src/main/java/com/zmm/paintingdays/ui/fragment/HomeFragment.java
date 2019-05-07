@@ -88,11 +88,14 @@ public class HomeFragment extends BaseFragment<PaintingsPresenter> implements On
             @Override
             public void performAction(View view) {
 
-                mContext.startActivity(new Intent(mContext,PaintingsInfoActivity.class));
+//                mContext.startActivity(new Intent(mContext,PaintingsInfoActivity.class));
+                startActivityForResult(new Intent(mContext, PaintingsInfoActivity.class),1);
+
             }
         });
 
     }
+
 
 
     private void initRefreshLayout() {
@@ -116,6 +119,18 @@ public class HomeFragment extends BaseFragment<PaintingsPresenter> implements On
         mHomeAdapter.setEmptyView(R.layout.empty_content_home, mRvList);
 
         mPresenter.findAllPaintingsByUid(mUserId,page,size,true);
+    }
+
+    //判断，Only添加成功后返回，则刷新界面，否则皆不刷新
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == 1 && resultCode == 2){
+            page = 0;
+            mPresenter.findAllPaintingsByUid(mUserId,page,size,true);
+
+        }
     }
 
 

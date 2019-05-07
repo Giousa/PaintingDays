@@ -261,6 +261,7 @@ public class PaintingsInfoActivity extends BaseActivity<PaintingsPresenter> impl
         if(mShapeLoadingDialog != null){
             mShapeLoadingDialog.dismiss();
         }
+        setResult(2);
         finish();
     }
 

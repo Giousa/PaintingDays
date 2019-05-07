@@ -9,10 +9,12 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -84,6 +86,36 @@ public interface ApiService {
                                                @Query("newPassword") String newPassword,
                                                @Query("verifyCode") String verifyCode);
 
+
+
+    /**
+     * -----------------------------用户信息界面接口-----------------------------
+     */
+
+    /**
+     * 根据id查询用户信息
+     * @param id
+     * @return
+     */
+    @GET("user/findUserById/{id}")
+    Observable<BaseBean<UserBean>> findUserById(@Path("id") String id);
+
+    /**
+     * 根据id删除用户信息（本质是修改了手机号）
+     * @param id
+     * @return
+     */
+    @GET("user/deleteUserById/{id}")
+    Observable<BaseBean<String>> deleteUserById(@Path("id") String id);
+
+    @Multipart
+    @POST("user/uploadIcon")
+    Observable<BaseBean<UserBean>> uploadIcon( @Query("id") String id,
+                                               @Query("username") String username,
+                                               @Part() MultipartBody.Part file);
+
+    @POST("user/updateUser")
+    Observable<BaseBean<UserBean>> updateUserBean(@Body UserBean userBean);
 
 
     /**
