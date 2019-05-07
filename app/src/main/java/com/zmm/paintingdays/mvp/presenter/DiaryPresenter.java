@@ -4,6 +4,7 @@ import com.zmm.paintingdays.bean.DiaryBean;
 import com.zmm.paintingdays.mvp.presenter.contract.DiaryContract;
 import com.zmm.paintingdays.rx.RxHttpResponseCompat;
 import com.zmm.paintingdays.rx.subscriber.ErrorHandlerSubscriber;
+import com.zmm.paintingdays.utils.DateUtils;
 
 import java.util.List;
 
@@ -47,6 +48,25 @@ public class DiaryPresenter extends BasePresenter<DiaryContract.IDiaryModel,Diar
                     public void onError(Throwable e) {
                         super.onError(e);
                         mView.findAllDiaryByUidFailure();
+                    }
+                });
+    }
+
+    /**
+     * 添加日记
+     * @param userId
+     * @param title
+     * @param contnet
+     * @param createTime
+     */
+    public void addDiary(String userId, String title, String contnet, String createTime) {
+
+        mModel.addDiary(userId,title,contnet, createTime)
+                .compose(RxHttpResponseCompat.<DiaryBean>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<DiaryBean>() {
+                    @Override
+                    public void onNext(DiaryBean diaryBean) {
+                        mView.addDiarySuccess(diaryBean);
                     }
                 });
     }

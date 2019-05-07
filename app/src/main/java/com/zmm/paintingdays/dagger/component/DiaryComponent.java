@@ -2,6 +2,7 @@ package com.zmm.paintingdays.dagger.component;
 
 import com.zmm.paintingdays.dagger.ActivityScope;
 import com.zmm.paintingdays.dagger.module.DiaryModule;
+import com.zmm.paintingdays.ui.activity.DiaryInfoActivity;
 import com.zmm.paintingdays.ui.fragment.DiaryFragment;
 
 import dagger.Component;
@@ -17,5 +18,7 @@ import dagger.Component;
 public interface DiaryComponent {
 
     void inject(DiaryFragment diaryFragment);
+
+    void inject(DiaryInfoActivity diaryInfoActivity);
 
 }

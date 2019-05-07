@@ -19,6 +19,7 @@ import com.zmm.paintingdays.dagger.component.HttpComponent;
 import com.zmm.paintingdays.dagger.module.DiaryModule;
 import com.zmm.paintingdays.mvp.presenter.DiaryPresenter;
 import com.zmm.paintingdays.mvp.presenter.contract.DiaryContract;
+import com.zmm.paintingdays.ui.activity.DiaryInfoActivity;
 import com.zmm.paintingdays.ui.activity.PaintingsInfoActivity;
 import com.zmm.paintingdays.ui.adapter.DiaryAdapter;
 import com.zmm.paintingdays.ui.widget.TitleBar;
@@ -92,7 +93,7 @@ public class DiaryFragment extends BaseFragment<DiaryPresenter> implements Diary
             @Override
             public void performAction(View view) {
 
-                startActivityForResult(new Intent(mContext, PaintingsInfoActivity.class),1);
+                startActivityForResult(new Intent(mContext, DiaryInfoActivity.class),1);
 
             }
         });
@@ -172,11 +173,6 @@ public class DiaryFragment extends BaseFragment<DiaryPresenter> implements Diary
 
     @Override
     public void addDiarySuccess(DiaryBean diaryBean) {
-
-    }
-
-    @Override
-    public void addDiaryFailure() {
 
     }
 

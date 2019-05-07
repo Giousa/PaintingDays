@@ -6,7 +6,6 @@ import com.zmm.paintingdays.bean.DiaryBean;
 import com.zmm.paintingdays.bean.PaintingsBean;
 import com.zmm.paintingdays.bean.UserBean;
 
-import java.util.Date;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -148,7 +147,7 @@ public interface ApiService {
     Observable<BaseBean<DiaryBean>> addDiary(@Query("uId")String uId,
                                              @Query("title")String title,
                                              @Query("content")String content,
-                                             @Query("createTime")Date createTime);
+                                             @Query("createTime")String createTime);
 
 
     @GET("diary/updateDiary")

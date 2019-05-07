@@ -74,5 +74,32 @@ public class TimeUtils {
         return "刚刚";
     }
 
+    public static String getTimeFormatTextDiary(long time) {
+
+        long diff = new Date().getTime() - time;
+        long r;
+
+        if (diff > year) {
+            return DateUtils.longToString(time,null);
+        }
+        if (diff > month) {
+            return DateUtils.longToString(time,null);
+        }
+        if (diff > day) {
+            r = (diff / day);
+            return r + "天前";
+        }
+        if (diff > hour) {
+            r = (diff / hour);
+            return r + "个小时前";
+        }
+        if (diff > minute) {
+            r = (diff / minute);
+            return r + "分钟前";
+        }
+
+        return "刚刚";
+    }
+
 
 }

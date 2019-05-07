@@ -5,7 +5,6 @@ import com.zmm.paintingdays.bean.DiaryBean;
 import com.zmm.paintingdays.http.ApiService;
 import com.zmm.paintingdays.mvp.presenter.contract.DiaryContract;
 
-import java.util.Date;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -25,7 +24,7 @@ public class DiaryModel implements DiaryContract.IDiaryModel{
     }
 
     @Override
-    public Observable<BaseBean<DiaryBean>> addDiary(String uId, String title, String content, Date createTime) {
+    public Observable<BaseBean<DiaryBean>> addDiary(String uId, String title, String content, String createTime) {
         return mApiService.addDiary(uId,title,content,createTime);
     }
 

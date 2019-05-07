@@ -2,14 +2,11 @@ package com.zmm.paintingdays.mvp.presenter.contract;
 
 import com.zmm.paintingdays.bean.BaseBean;
 import com.zmm.paintingdays.bean.DiaryBean;
-import com.zmm.paintingdays.bean.PaintingsBean;
 import com.zmm.paintingdays.mvp.view.BaseView;
 
-import java.util.Date;
 import java.util.List;
 
 import io.reactivex.Observable;
-import okhttp3.MultipartBody;
 
 /**
  * Description:
@@ -22,7 +19,7 @@ public interface DiaryContract {
 
     interface IDiaryModel{
 
-        Observable<BaseBean<DiaryBean>> addDiary(String uId, String title, String content, Date createTime);
+        Observable<BaseBean<DiaryBean>> addDiary(String uId, String title, String content, String createTime);
 
         Observable<BaseBean<List<DiaryBean>>> findAllDiaryByUid(String uId, int page, int size);
 
@@ -40,6 +37,5 @@ public interface DiaryContract {
 
         void addDiarySuccess(DiaryBean diaryBean);
 
-        void addDiaryFailure();
     }
 }

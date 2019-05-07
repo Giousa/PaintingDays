@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar_content" />
+
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/dp_size_10">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp_size_10"
+            android:text="标题："
+            android:textSize="@dimen/sp_size_16" />
+
+        <EditText
+            android:id="@+id/et_diary_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dp_size_10"
+            android:background="@android:drawable/edit_text"
+            android:enabled="true"
+            android:hint="请输入标题"
+            android:singleLine="true"
+            android:textSize="@dimen/sp_size_14" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_size_20"
+        android:text="内容："
+        android:textSize="@dimen/sp_size_16" />
+
+    <EditText
+        android:id="@+id/et_diary_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_size_10"
+        android:layout_marginRight="@dimen/dp_size_10"
+        android:background="@android:drawable/edit_text"
+        android:enabled="true"
+        android:gravity="top"
+        android:hint=""
+        android:inputType="textMultiLine"
+        android:maxLines="14"
+        android:minLines="8"
+        android:scrollbars="vertical" />
+
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/dp_size_10">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp_size_10"
+            android:text="时间："
+            android:textSize="@dimen/sp_size_16" />
+
+        <TextView
+            android:id="@+id/tv_diary_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp_size_20"
+            android:text="2019-05-07"
+            android:textSize="@dimen/sp_size_16" />
+
+        <ImageView
+            android:id="@+id/iv_diary_time_select"
+            android:layout_width="@dimen/dp_size_30"
+            android:layout_height="@dimen/dp_size_30"
+            android:src="@drawable/icon_down"/>
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/btn_diary_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/smallBiggerMargin"
+        android:layout_marginRight="@dimen/smallBiggerMargin"
+        android:layout_marginTop="@dimen/bigMargin"
+        android:background="@drawable/bg_btn"
+        android:text="提交"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_size_18" />
+</LinearLayout>
