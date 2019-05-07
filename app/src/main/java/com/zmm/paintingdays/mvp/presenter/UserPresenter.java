@@ -65,6 +65,12 @@ public class UserPresenter extends BasePresenter<UserContract.IUserModel,UserCon
                     public void onNext(UserBean userBean) {
                         mView.updateSuccess(userBean);
                     }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        mView.updateFailure();
+                    }
                 });
 
     }

@@ -2,17 +2,18 @@ package com.zmm.paintingdays.ui.fragment;
 
 
 import android.content.Intent;
-import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.ui.ImageGridActivity;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.zmm.paintingdays.R;
 import com.zmm.paintingdays.bean.UserBean;
 import com.zmm.paintingdays.config.CommonConfig;
@@ -21,18 +22,19 @@ import com.zmm.paintingdays.dagger.component.HttpComponent;
 import com.zmm.paintingdays.dagger.module.UserModule;
 import com.zmm.paintingdays.mvp.presenter.UserPresenter;
 import com.zmm.paintingdays.mvp.presenter.contract.UserContract;
+import com.zmm.paintingdays.ui.activity.SettingActivity;
+import com.zmm.paintingdays.ui.activity.UserInfoActivity;
 import com.zmm.paintingdays.ui.widget.CustomItemView;
 import com.zmm.paintingdays.utils.GlideUtils;
 import com.zmm.paintingdays.utils.SharedPreferencesUtil;
 import com.zmm.paintingdays.utils.ToastUtils;
 import com.zmm.paintingdays.utils.UIUtils;
+import com.zmm.paintingdays.utils.VerificationUtils;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
 /**
  * Description:
@@ -40,7 +42,7 @@ import butterknife.Unbinder;
  * Date:2018/11/8
  * Email:65489469@qq.com
  */
-public class MyFragment extends BaseFragment<UserPresenter> implements CustomItemView.OnItemClickListener, UserContract.UserView {
+public class MyFragment extends BaseFragment<UserPresenter> implements CustomItemView.OnItemClickListener, UserContract.UserView, OnRefreshListener {
 
     @BindView(R.id.iv_my_icon)
     ImageView mIvMyIcon;
@@ -52,6 +54,8 @@ public class MyFragment extends BaseFragment<UserPresenter> implements CustomIte
     ImageView mIvMyInfo;
     @BindView(R.id.custom_item_setting)
     CustomItemView mCustomItemSetting;
+    @BindView(R.id.refresh_Layout)
+    SmartRefreshLayout mRefreshLayout;
 
     private ArrayList<ImageItem> mImages;
     private UserBean mUserBean;
@@ -73,9 +77,23 @@ public class MyFragment extends BaseFragment<UserPresenter> implements CustomIte
 
     @Override
     protected void init() {
-        mCustomItemSetting.setOnItemClickListener(this);
 
         mUserBean = UIUtils.getUserBean();
+
+        initEvent();
+
+        initView();
+
+        initRefreshLayout();
+    }
+
+
+    private void initEvent() {
+        mCustomItemSetting.setOnItemClickListener(this);
+
+    }
+
+    private void initView() {
 
         if (mUserBean != null) {
             String icon = mUserBean.getIcon();
@@ -92,12 +110,17 @@ public class MyFragment extends BaseFragment<UserPresenter> implements CustomIte
             mTvMySign.setVisibility(View.INVISIBLE);
         }
 
+    }
+
+    private void initRefreshLayout() {
+
+        mRefreshLayout.setOnRefreshListener(this);
 
     }
 
     @Override
     public void OnItemClick(String title) {
-//        startActivity(SettingActivity.class);
+        startActivity(SettingActivity.class);
     }
 
 
@@ -114,9 +137,11 @@ public class MyFragment extends BaseFragment<UserPresenter> implements CustomIte
                 break;
             case R.id.iv_my_info:
 
-                if(UIUtils.getUserBean() != null){
+                if (UIUtils.getUserBean() != null) {
 //                    startActivity(UserInfoActivity.class);
-                }else {
+                    startActivityForResult(new Intent(mContext, UserInfoActivity.class),1);
+
+                } else {
                     ToastUtils.SimpleToast("请登录");
                 }
                 break;
@@ -136,7 +161,7 @@ public class MyFragment extends BaseFragment<UserPresenter> implements CustomIte
                     System.out.println("选择图片：" + mImages.get(0).path);
 
                     if (!TextUtils.isEmpty(mUserBean.getId())) {
-                        mPresenter.uploadPic(mUserBean.getId(),mUserBean.getUsername(), mImages.get(0).path);
+                        mPresenter.uploadPic(mUserBean.getId(), mUserBean.getUsername(), mImages.get(0).path);
                     } else {
                         ToastUtils.SimpleToast("请登录");
                     }
@@ -145,11 +170,19 @@ public class MyFragment extends BaseFragment<UserPresenter> implements CustomIte
             } else {
                 System.out.println("没有数据");
             }
+        }else if(requestCode == 1  && resultCode == 2){
+            mPresenter.findUserById(mUserBean.getId());
         }
+
+
     }
 
     @Override
     public void updateSuccess(UserBean userBean) {
+
+        if(mRefreshLayout != null){
+            mRefreshLayout.finishRefresh();
+        }
         if (userBean != null) {
 
             SharedPreferencesUtil.saveString(CommonConfig.LOGIN_USER, SharedPreferencesUtil.toJson(userBean));
@@ -159,14 +192,14 @@ public class MyFragment extends BaseFragment<UserPresenter> implements CustomIte
 
             if (!TextUtils.isEmpty(icon)) {
 
-                GlideUtils.loadCircleImage(mContext, icon,mIvMyIcon);
+                GlideUtils.loadCircleImage(mContext, icon, mIvMyIcon);
             }
 
 
             //名称
-            if(TextUtils.isEmpty(userBean.getNickname())){
-                mTvMyName.setText(userBean.getUsername());
-            }else {
+            if (TextUtils.isEmpty(userBean.getNickname())) {
+                mTvMyName.setText(VerificationUtils.hidePhoneNumber(userBean.getUsername()));
+            } else {
                 mTvMyName.setText(userBean.getNickname());
             }
 
@@ -179,7 +212,19 @@ public class MyFragment extends BaseFragment<UserPresenter> implements CustomIte
     }
 
     @Override
+    public void updateFailure() {
+        if(mRefreshLayout != null){
+            mRefreshLayout.finishRefresh();
+        }
+    }
+
+    @Override
     public void deleteSuccess() {
 
+    }
+
+    @Override
+    public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+        initView();
     }
 }

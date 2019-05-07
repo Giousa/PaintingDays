@@ -3,6 +3,8 @@ package com.zmm.paintingdays.dagger.component;
 
 import com.zmm.paintingdays.dagger.ActivityScope;
 import com.zmm.paintingdays.dagger.module.UserModule;
+import com.zmm.paintingdays.ui.activity.SettingActivity;
+import com.zmm.paintingdays.ui.activity.UserInfoActivity;
 import com.zmm.paintingdays.ui.fragment.MyFragment;
 
 import dagger.Component;
@@ -19,7 +21,7 @@ public interface UserComponent {
 
     void inject(MyFragment fragment);
 
-//    void inject(UserInfoActivity activity);
+    void inject(UserInfoActivity activity);
 
-//    void inject(SettingActivity activity);
+    void inject(SettingActivity activity);
 }

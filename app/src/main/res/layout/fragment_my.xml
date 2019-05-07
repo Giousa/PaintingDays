@@ -6,73 +6,87 @@
     android:background="@color/white_score"
     android:orientation="vertical">
 
-    <LinearLayout
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refresh_Layout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_size_200"
-        android:background="@color/colorPrimary"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingLeft="@dimen/dp_size_20">
-
-        <ImageView
-            android:id="@+id/iv_my_icon"
-            android:layout_width="@dimen/dp_size_100"
-            android:layout_height="@dimen/dp_size_100"
-            android:scaleType="fitXY"
-            android:src="@drawable/default_my_icon" />
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_size_80"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:paddingLeft="@dimen/dp_size_20">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="5"
-                android:orientation="vertical">
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_size_200"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/dp_size_20">
 
-                <TextView
-                    android:id="@+id/tv_my_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="姓名"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/sp_size_18" />
+                <ImageView
+                    android:id="@+id/iv_my_icon"
+                    android:layout_width="@dimen/dp_size_100"
+                    android:layout_height="@dimen/dp_size_100"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/default_my_icon" />
 
-                <TextView
-                    android:id="@+id/tv_my_sign"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_size_5"
-                    android:singleLine="true"
-                    android:text="这个是个性签名"
-                    android:textColor="@color/white_score"
-                    android:textSize="@dimen/sp_size_14" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_size_80"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/dp_size_20">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_my_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="姓名"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/sp_size_18" />
+
+                        <TextView
+                            android:id="@+id/tv_my_sign"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_size_5"
+                            android:singleLine="true"
+                            android:text="这个是个性签名"
+                            android:textColor="@color/white_score"
+                            android:textSize="@dimen/sp_size_14" />
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/iv_my_info"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/dp_size_20"
+                        android:layout_alignParentRight="true"
+                        android:layout_weight="1"
+                        android:padding="@dimen/dp_size_1"
+                        android:src="@drawable/icon_right" />
+                </LinearLayout>
 
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/iv_my_info"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/dp_size_20"
-                android:layout_alignParentRight="true"
-                android:layout_weight="1"
-                android:padding="@dimen/dp_size_1"
-                android:src="@drawable/icon_right" />
+
+            <com.zmm.paintingdays.ui.widget.CustomItemView
+                android:id="@+id/custom_item_setting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_size_10"
+                app:icon="@drawable/my_setting_icon"
+                app:title="设置" />
         </LinearLayout>
 
-    </LinearLayout>
 
-
-    <com.zmm.paintingdays.ui.widget.CustomItemView
-        android:id="@+id/custom_item_setting"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_size_10"
-        app:icon="@drawable/my_setting_icon"
-        app:title="设置" />
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 </LinearLayout>

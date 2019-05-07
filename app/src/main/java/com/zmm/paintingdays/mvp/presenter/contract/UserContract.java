@@ -36,6 +36,8 @@ public interface UserContract {
 
         void updateSuccess(UserBean userBean);
 
+        void updateFailure();
+
         void deleteSuccess();
         
     }
