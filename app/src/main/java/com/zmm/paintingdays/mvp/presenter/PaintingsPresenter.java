@@ -112,7 +112,14 @@ public class PaintingsPresenter extends BasePresenter<PaintingsContract.IPaintin
      * @param date
      */
     public void findPaintingsByCreateTime(String userId, String date) {
-
+        mModel.findPaintingsByCreateTime(userId,date)
+                .compose(RxHttpResponseCompat.<List<PaintingsBean>>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<List<PaintingsBean>>() {
+                    @Override
+                    public void onNext(List<PaintingsBean> paintingsBeanList) {
+                        mView.findAllPaintingsByUidOnRefresh(paintingsBeanList);
+                    }
+                });
     }
 
     /**

@@ -117,13 +117,13 @@ public class CalendarActivity extends BaseActivity<PaintingsPresenter> implement
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == 1 && resultCode == 2){
-
+            requestCheckedData();
         }
     }
 
     @Override
     public void findAllPaintingsByUidOnRefresh(List<PaintingsBean> paintingsBeanList) {
-
+        mHomeAdapter.setNewData(paintingsBeanList);
     }
 
     @Override
