@@ -5,6 +5,7 @@ import com.zmm.paintingdays.mvp.presenter.contract.DiaryContract;
 import com.zmm.paintingdays.rx.RxHttpResponseCompat;
 import com.zmm.paintingdays.rx.subscriber.ErrorHandlerSubscriber;
 import com.zmm.paintingdays.utils.DateUtils;
+import com.zmm.paintingdays.utils.ToastUtils;
 
 import java.util.List;
 
@@ -67,6 +68,22 @@ public class DiaryPresenter extends BasePresenter<DiaryContract.IDiaryModel,Diar
                     @Override
                     public void onNext(DiaryBean diaryBean) {
                         mView.addDiarySuccess(diaryBean);
+                    }
+                });
+    }
+
+    /**
+     * 删除日记
+     * @param id
+     * @param position
+     */
+    public void deleteDiary(String id, final int position) {
+        mModel.deleteDiary(id)
+                .compose(RxHttpResponseCompat.<String>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<String>() {
+                    @Override
+                    public void onNext(String s) {
+                        mView.deleteSuccess(position);
                     }
                 });
     }

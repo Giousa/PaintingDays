@@ -138,4 +138,9 @@ public class DiaryInfoActivity extends BaseActivity<DiaryPresenter> implements D
         finish();
     }
 
+    @Override
+    public void deleteSuccess(int position) {
+
+    }
+
 }

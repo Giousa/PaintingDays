@@ -22,7 +22,9 @@ import com.zmm.paintingdays.mvp.presenter.contract.DiaryContract;
 import com.zmm.paintingdays.ui.activity.DiaryInfoActivity;
 import com.zmm.paintingdays.ui.activity.PaintingsInfoActivity;
 import com.zmm.paintingdays.ui.adapter.DiaryAdapter;
+import com.zmm.paintingdays.ui.dialog.SimpleConfirmDialog;
 import com.zmm.paintingdays.ui.widget.TitleBar;
+import com.zmm.paintingdays.utils.ToastUtils;
 import com.zmm.paintingdays.utils.UIUtils;
 
 import java.util.List;
@@ -37,7 +39,7 @@ import butterknife.BindView;
  * Date:2018/11/8
  * Email:65489469@qq.com
  */
-public class DiaryFragment extends BaseFragment<DiaryPresenter> implements DiaryContract.DiaryView, OnRefreshLoadMoreListener {
+public class DiaryFragment extends BaseFragment<DiaryPresenter> implements DiaryContract.DiaryView, OnRefreshLoadMoreListener, DiaryAdapter.OnRightMenuClickListener {
 
     @BindView(R.id.title_bar)
     TitleBar mTitleBar;
@@ -131,6 +133,8 @@ public class DiaryFragment extends BaseFragment<DiaryPresenter> implements Diary
         //适配器，设置空布局
         mDiaryAdapter.setEmptyView(R.layout.empty_content, mRvList);
 
+        mDiaryAdapter.setOnRightMenuClickListener(this);
+
         mPresenter.findAllDiaryByUid(mUserId,page,size,true);
     }
 
@@ -176,5 +180,35 @@ public class DiaryFragment extends BaseFragment<DiaryPresenter> implements Diary
 
     }
 
+    @Override
+    public void deleteSuccess(int position) {
+        ToastUtils.SimpleToast("日记删除成功");
+        mDiaryAdapter.remove(position);
+    }
 
+
+    @Override
+    public void onRightMenuDelete(final String id, final int position) {
+        final SimpleConfirmDialog simpleConfirmDialog = new SimpleConfirmDialog(mContext,null);
+        simpleConfirmDialog.setOnClickListener(new SimpleConfirmDialog.OnClickListener() {
+            @Override
+            public void onCancel() {
+                simpleConfirmDialog.dismiss();
+            }
+
+            @Override
+            public void onConfirm() {
+                simpleConfirmDialog.dismiss();
+                mPresenter.deleteDiary(id,position);
+
+            }
+        });
+
+        simpleConfirmDialog.show();
+    }
+
+    @Override
+    public void onRightMenuUpdate(String id) {
+
+    }
 }
