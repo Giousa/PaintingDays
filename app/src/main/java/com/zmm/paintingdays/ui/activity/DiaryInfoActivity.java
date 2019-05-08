@@ -13,6 +13,7 @@ import com.zmm.paintingdays.dagger.component.HttpComponent;
 import com.zmm.paintingdays.dagger.module.DiaryModule;
 import com.zmm.paintingdays.mvp.presenter.DiaryPresenter;
 import com.zmm.paintingdays.mvp.presenter.contract.DiaryContract;
+import com.zmm.paintingdays.ui.widget.DateSelectView;
 import com.zmm.paintingdays.ui.widget.TitleBar;
 import com.zmm.paintingdays.utils.DateUtils;
 import com.zmm.paintingdays.utils.ToastUtils;
@@ -65,7 +66,7 @@ public class DiaryInfoActivity extends BaseActivity<DiaryPresenter> implements D
     @Override
     protected void init() {
 
-        mTvDiaryTime.setText(DateUtils.longToString(System.currentTimeMillis(),"yyyy-MM-dd HH:mm:ss"));
+        mTvDiaryTime.setText(DateUtils.longToString(System.currentTimeMillis(),"yyyy-MM-dd"));
 
         mUserId = UIUtils.getUserBean().getId();
 
@@ -105,7 +106,14 @@ public class DiaryInfoActivity extends BaseActivity<DiaryPresenter> implements D
     }
 
     private void timeSelect() {
+        DateSelectView dateSelectView = new DateSelectView(mContext,mLlRoot,mScreenWidth,null);
 
+        dateSelectView.setOnDateClickListener(new DateSelectView.OnDateClickListener() {
+            @Override
+            public void onDateClick(String date) {
+                mTvDiaryTime.setText(date);
+            }
+        });
     }
 
     private void submit() {

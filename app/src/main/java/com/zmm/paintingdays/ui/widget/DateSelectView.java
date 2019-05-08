@@ -199,7 +199,21 @@ public class DateSelectView extends View {
         int n_year = wl_start_year.getCurrentItem() + MIDDLE_YEAR;
         int n_month = wl_start_month.getCurrentItem() + 1;
         int n_day = wl_start_day.getCurrentItem() + 1;
-        String switchDate = n_year + "-" + n_month + "-" + n_day;
+        String month;
+        String day;
+        if(n_month < 10){
+            month = "0"+n_month;
+        }else {
+            month = n_month+"";
+        }
+
+        if(n_day < 10){
+            day = "0"+n_day;
+        }else {
+            day = n_day+"";
+        }
+//        String switchDate = n_year + "-" + n_month + "-" + n_day;
+        String switchDate = n_year + "-" + month + "-" + day;
 //        long time = System.currentTimeMillis();
 //        SimpleDateFormat format = new SimpleDateFormat("yyyy");
 //        Date date = new Date(time);
