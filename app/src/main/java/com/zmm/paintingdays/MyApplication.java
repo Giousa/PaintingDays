@@ -7,11 +7,13 @@ import android.support.multidex.MultiDex;
 
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.view.CropImageView;
+import com.previewlibrary.ZoomMediaLoader;
 import com.zmm.paintingdays.dagger.component.DaggerHttpComponent;
 import com.zmm.paintingdays.dagger.component.HttpComponent;
 import com.zmm.paintingdays.dagger.module.HttpModule;
 import com.zmm.paintingdays.ui.activity.BaseActivity;
 import com.zmm.paintingdays.ui.widget.GlideImageLoader;
+import com.zmm.paintingdays.ui.widget.MyZoomMediaLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +63,9 @@ public class MyApplication extends Application {
         mMainThreadId = android.os.Process.myTid();
 
         mBaseActivityList = new ArrayList<>();
+
+        //初始化预览图片
+        ZoomMediaLoader.getInstance().init(new MyZoomMediaLoader());
 
         initPhoto();
     }

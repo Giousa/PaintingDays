@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.previewlibrary.GPreviewBuilder;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
@@ -19,7 +20,9 @@ import com.zmm.paintingdays.mvp.presenter.PaintingsPresenter;
 import com.zmm.paintingdays.mvp.presenter.contract.PaintingsContract;
 import com.zmm.paintingdays.ui.activity.PaintingsInfoActivity;
 import com.zmm.paintingdays.ui.adapter.HomeAdapter;
+import com.zmm.paintingdays.ui.widget.MyThumbViewInfo;
 import com.zmm.paintingdays.ui.widget.TitleBar;
+import com.zmm.paintingdays.utils.ToastUtils;
 import com.zmm.paintingdays.utils.UIUtils;
 
 import java.util.List;
@@ -34,7 +37,7 @@ import butterknife.BindView;
  * Date:2018/11/8
  * Email:65489469@qq.com
  */
-public class HomeFragment extends BaseFragment<PaintingsPresenter> implements OnRefreshLoadMoreListener, PaintingsContract.PaintingsView {
+public class HomeFragment extends BaseFragment<PaintingsPresenter> implements OnRefreshLoadMoreListener, PaintingsContract.PaintingsView, HomeAdapter.OnPaintingsItemClickListener {
 
     @BindView(R.id.title_bar)
     TitleBar mTitleBar;
@@ -88,7 +91,6 @@ public class HomeFragment extends BaseFragment<PaintingsPresenter> implements On
             @Override
             public void performAction(View view) {
 
-//                mContext.startActivity(new Intent(mContext,PaintingsInfoActivity.class));
                 startActivityForResult(new Intent(mContext, PaintingsInfoActivity.class),1);
 
             }
@@ -117,6 +119,8 @@ public class HomeFragment extends BaseFragment<PaintingsPresenter> implements On
 
         //适配器，设置空布局
         mHomeAdapter.setEmptyView(R.layout.empty_content_home, mRvList);
+
+        mHomeAdapter.setOnPaintingsItemClickListener(this);
 
         mPresenter.findAllPaintingsByUid(mUserId,page,size,true);
     }
@@ -183,5 +187,24 @@ public class HomeFragment extends BaseFragment<PaintingsPresenter> implements On
     @Override
     public void addPaintingsFailure() {
 
+    }
+
+    @Override
+    public void OnPaintingsPicClick(String pic) {
+
+        MyThumbViewInfo myThumbViewInfo = new MyThumbViewInfo(pic);
+
+        GPreviewBuilder.from(this)
+                .setSingleData(myThumbViewInfo)
+                .setCurrentIndex(0)
+                .setDrag(true,0.6f)
+                .setType(GPreviewBuilder.IndicatorType.Number)
+                .setFullscreen(true)
+                .start();
+    }
+
+    @Override
+    public void OnPaintingsDelete(String id) {
+        System.out.println("删除图片");
     }
 }
