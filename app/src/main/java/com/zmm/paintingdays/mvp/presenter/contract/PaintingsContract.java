@@ -21,6 +21,10 @@ public interface PaintingsContract {
     interface IPaintingsModel{
         Observable<BaseBean<List<PaintingsBean>>> findAllPaintingsByUid(String uId,int page,int size);
 
+        Observable<BaseBean<List<PaintingsBean>>> findTodayPaintingsByUid(String uId,int page,int size);
+
+        Observable<BaseBean<List<PaintingsBean>>> findPaintingsByCreateTime(String uId,String createTime);
+
         Observable<BaseBean<PaintingsBean>> addPaintings(String uId,String username,String title,String content, String tags,int jurisdiction, MultipartBody.Part file);
 
         Observable<BaseBean<String>> deletePaintingsById(String id);

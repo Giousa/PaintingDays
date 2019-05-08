@@ -114,4 +114,26 @@ public class PaintingsPresenter extends BasePresenter<PaintingsContract.IPaintin
     public void findPaintingsByCreateTime(String userId, String date) {
 
     }
+
+    /**
+     * 查询今天画作
+     * @param userId
+     * @param page
+     * @param size
+     * @param isRefresh
+     */
+    public void findTodayPaintingsByUid(String userId, int page, int size, final boolean isRefresh) {
+        mModel.findTodayPaintingsByUid(userId,page,size)
+                .compose(RxHttpResponseCompat.<List<PaintingsBean>>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<List<PaintingsBean>>() {
+                    @Override
+                    public void onNext(List<PaintingsBean> paintingsBeanList) {
+                        if(isRefresh){
+                            mView.findAllPaintingsByUidOnRefresh(paintingsBeanList);
+                        }else {
+                            mView.findAllPaintingsByUidOnLoadMore(paintingsBeanList);
+                        }
+                    }
+                });
+    }
 }

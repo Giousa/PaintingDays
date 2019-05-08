@@ -128,6 +128,15 @@ public interface ApiService {
                                                                     @Query("page") int page,
                                                                     @Query("size") int size);
 
+    @GET("paintings/findTodayPaintingsByUid")
+    Observable<BaseBean<List<PaintingsBean>>> findTodayPaintingsByUid(@Query("uId") String uId,
+                                                                      @Query("page") int page,
+                                                                      @Query("size") int size);
+
+    @GET("paintings/findPaintingsByCreateTime")
+    Observable<BaseBean<List<PaintingsBean>>> findPaintingsByCreateTime(@Query("uId") String uId,
+                                                                        @Query("createTime") String createTime);
+
     @Multipart
     @POST("paintings/addPaintings")
     Observable<BaseBean<PaintingsBean>> addPaintings(@Query("uId")String uId,

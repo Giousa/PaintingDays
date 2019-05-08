@@ -30,6 +30,16 @@ public class PaintingsModel implements PaintingsContract.IPaintingsModel{
     }
 
     @Override
+    public Observable<BaseBean<List<PaintingsBean>>> findTodayPaintingsByUid(String uId, int page, int size) {
+        return mApiService.findTodayPaintingsByUid(uId,page,size);
+    }
+
+    @Override
+    public Observable<BaseBean<List<PaintingsBean>>> findPaintingsByCreateTime(String uId, String createTime) {
+        return mApiService.findPaintingsByCreateTime(uId,createTime);
+    }
+
+    @Override
     public Observable<BaseBean<PaintingsBean>> addPaintings(String uId, String username, String title, String content, String tags, int jurisdiction, MultipartBody.Part file) {
         return mApiService.addPaintings(uId,username,title,content,tags,jurisdiction,file);
     }

@@ -125,7 +125,7 @@ public class HomeFragment extends BaseFragment<PaintingsPresenter> implements On
 
         mHomeAdapter.setOnPaintingsItemClickListener(this);
 
-        mPresenter.findAllPaintingsByUid(mUserId,page,size,true);
+        mPresenter.findTodayPaintingsByUid(mUserId,page,size,true);
     }
 
     //判断，Only添加成功后返回，则刷新界面，否则皆不刷新
@@ -135,7 +135,7 @@ public class HomeFragment extends BaseFragment<PaintingsPresenter> implements On
 
         if(requestCode == 1 && resultCode == 2){
             page = 0;
-            mPresenter.findAllPaintingsByUid(mUserId,page,size,true);
+            mPresenter.findTodayPaintingsByUid(mUserId,page,size,true);
 
         }
     }
@@ -145,14 +145,14 @@ public class HomeFragment extends BaseFragment<PaintingsPresenter> implements On
     public void onLoadMore(RefreshLayout refreshLayout) {
         System.out.println("加载更多");
 //        page++;
-        mPresenter.findAllPaintingsByUid(mUserId,page,size,false);
+        mPresenter.findTodayPaintingsByUid(mUserId,page,size,false);
     }
 
     @Override
     public void onRefresh(RefreshLayout refreshLayout) {
         System.out.println("上拉刷新");
         page = 0;
-        mPresenter.findAllPaintingsByUid(mUserId,page,size,true);
+        mPresenter.findTodayPaintingsByUid(mUserId,page,size,true);
     }
 
     @Override
