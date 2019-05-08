@@ -21,9 +21,15 @@ public interface DiaryContract {
 
         Observable<BaseBean<DiaryBean>> addDiary(String uId, String title, String content, String createTime);
 
+        Observable<BaseBean<DiaryBean>> findDiaryById(String id);
+
+        Observable<BaseBean<DiaryBean>> updateDiary(DiaryBean diaryBean);
+
         Observable<BaseBean<List<DiaryBean>>> findAllDiaryByUid(String uId, int page, int size);
 
         Observable<BaseBean<String>> deleteDiary(String id);
+
+
 
     }
 
@@ -38,6 +44,8 @@ public interface DiaryContract {
         void addDiarySuccess(DiaryBean diaryBean);
 
         void deleteSuccess(int position);
+
+        void findDiaryByIdSuccess(DiaryBean diaryBean);
 
     }
 }

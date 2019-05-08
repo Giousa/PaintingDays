@@ -12,7 +12,7 @@ public class PaintingsBean implements Serializable {
 
     private String id;
 
-    private String uId;
+    private String uid;
 
     private String pics;
 
@@ -38,12 +38,12 @@ public class PaintingsBean implements Serializable {
         this.id = id;
     }
 
-    public String getuId() {
-        return uId;
+    public String getUid() {
+        return uid;
     }
 
-    public void setuId(String uId) {
-        this.uId = uId;
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public String getPics() {

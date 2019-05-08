@@ -12,7 +12,7 @@ public class DiaryBean implements Serializable {
 
     private String id;
 
-    private String uId;
+    private String uid;
 
     private String title;
 
@@ -22,8 +22,6 @@ public class DiaryBean implements Serializable {
 
     private String createTime;
 
-    private String updateTime;
-
     public String getId() {
         return id;
     }
@@ -32,12 +30,12 @@ public class DiaryBean implements Serializable {
         this.id = id;
     }
 
-    public String getuId() {
-        return uId;
+    public String getUid() {
+        return uid;
     }
 
-    public void setuId(String uId) {
-        this.uId = uId;
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public String getTitle() {
@@ -72,11 +70,4 @@ public class DiaryBean implements Serializable {
         this.createTime = createTime;
     }
 
-    public String getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(String updateTime) {
-        this.updateTime = updateTime;
-    }
 }

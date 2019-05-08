@@ -45,6 +45,8 @@ public class DiaryInfoActivity extends BaseActivity<DiaryPresenter> implements D
 
 
     private String mUserId;
+    private String mId;
+    private DiaryBean mDiaryBean;
 
     @Override
     protected int setLayout() {
@@ -66,6 +68,11 @@ public class DiaryInfoActivity extends BaseActivity<DiaryPresenter> implements D
         mTvDiaryTime.setText(DateUtils.longToString(System.currentTimeMillis(),"yyyy-MM-dd HH:mm:ss"));
 
         mUserId = UIUtils.getUserBean().getId();
+
+        mId = getIntent().getStringExtra("id");
+        if(!TextUtils.isEmpty(mId)){
+            mPresenter.findDiaryById(mId);
+        }
 
         initToolBar();
     }
@@ -112,7 +119,16 @@ public class DiaryInfoActivity extends BaseActivity<DiaryPresenter> implements D
             contnet = contnet.trim();
         }
 
-        mPresenter.addDiary(mUserId,title,contnet,mTvDiaryTime.getText().toString());
+        if(TextUtils.isEmpty(mId)){
+            mPresenter.addDiary(mUserId,title,contnet,mTvDiaryTime.getText().toString());
+        }else {
+            if(mDiaryBean != null){
+                mDiaryBean.setTitle(title);
+                mDiaryBean.setContent(contnet);
+                mDiaryBean.setCreateTime(mTvDiaryTime.getText().toString());
+                mPresenter.updateDiary(mDiaryBean);
+            }
+        }
 
     }
 
@@ -133,13 +149,28 @@ public class DiaryInfoActivity extends BaseActivity<DiaryPresenter> implements D
 
     @Override
     public void addDiarySuccess(DiaryBean diaryBean) {
-        ToastUtils.SimpleToast("日记添加成功");
+
+        if(TextUtils.isEmpty(mId)){
+            ToastUtils.SimpleToast("日记添加成功");
+        }else {
+            ToastUtils.SimpleToast("日记修改成功");
+
+        }
         setResult(2);
         finish();
     }
 
     @Override
     public void deleteSuccess(int position) {
+
+    }
+
+    @Override
+    public void findDiaryByIdSuccess(DiaryBean diaryBean) {
+        mDiaryBean = diaryBean;
+        mEtDiaryTitle.setText(diaryBean.getTitle());
+        mEtDiaryContent.setText(diaryBean.getContent());
+        mTvDiaryTime.setText(DateUtils.dateToString(DateUtils.stringToDate(diaryBean.getCreateTime(),null),null));
 
     }
 

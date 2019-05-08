@@ -29,6 +29,16 @@ public class DiaryModel implements DiaryContract.IDiaryModel{
     }
 
     @Override
+    public Observable<BaseBean<DiaryBean>> findDiaryById(String id) {
+        return mApiService.findDiaryById(id);
+    }
+
+    @Override
+    public Observable<BaseBean<DiaryBean>> updateDiary(DiaryBean diaryBean) {
+        return mApiService.updateDiary(diaryBean);
+    }
+
+    @Override
     public Observable<BaseBean<List<DiaryBean>>> findAllDiaryByUid(String uId, int page, int size) {
         return mApiService.findAllDiaryByUid(uId,page,size);
     }

@@ -186,6 +186,11 @@ public class DiaryFragment extends BaseFragment<DiaryPresenter> implements Diary
         mDiaryAdapter.remove(position);
     }
 
+    @Override
+    public void findDiaryByIdSuccess(DiaryBean diaryBean) {
+
+    }
+
 
     @Override
     public void onRightMenuDelete(final String id, final int position) {
@@ -209,6 +214,8 @@ public class DiaryFragment extends BaseFragment<DiaryPresenter> implements Diary
 
     @Override
     public void onRightMenuUpdate(String id) {
-
+        Intent intent = new Intent(mContext,DiaryInfoActivity.class);
+        intent.putExtra("id",id);
+        startActivity(intent);
     }
 }

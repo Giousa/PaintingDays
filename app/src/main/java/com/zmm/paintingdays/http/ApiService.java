@@ -150,7 +150,7 @@ public interface ApiService {
                                              @Query("createTime")String createTime);
 
 
-    @GET("diary/updateDiary")
+    @POST("diary/updateDiary")
     Observable<BaseBean<DiaryBean>> updateDiary(@Body DiaryBean diaryBean);
 
 

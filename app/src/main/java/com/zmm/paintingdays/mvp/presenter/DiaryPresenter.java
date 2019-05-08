@@ -87,4 +87,35 @@ public class DiaryPresenter extends BasePresenter<DiaryContract.IDiaryModel,Diar
                     }
                 });
     }
+
+    /**
+     * 查询日记
+     * @param id
+     */
+    public void findDiaryById(String id) {
+        mModel.findDiaryById(id)
+                .compose(RxHttpResponseCompat.<DiaryBean>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<DiaryBean>() {
+                    @Override
+                    public void onNext(DiaryBean diaryBean) {
+                        mView.findDiaryByIdSuccess(diaryBean);
+                    }
+                });
+    }
+
+    /**
+     * 更新日记
+     * @param diaryBean
+     */
+    public void updateDiary(DiaryBean diaryBean) {
+
+        mModel.updateDiary(diaryBean)
+                .compose(RxHttpResponseCompat.<DiaryBean>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<DiaryBean>() {
+                    @Override
+                    public void onNext(DiaryBean diaryBean) {
+                        mView.addDiarySuccess(diaryBean);
+                    }
+                });
+    }
 }

@@ -32,8 +32,8 @@ public class DiaryAdapter extends BaseQuickAdapter<DiaryBean,BaseViewHolder>{
     @Override
     protected void convert(final BaseViewHolder helper, final DiaryBean item) {
         String createTime = item.getCreateTime();
-        String textHistory = TimeUtils.getTimeFormatTextHistory(DateUtils.stringToLong(createTime,"yyyy-MM-dd HH:mm:ss"));
-        helper.setText(R.id.tv_item_time,textHistory);
+        String textTime = TimeUtils.getTimeFormatTextHistory(DateUtils.stringToLong(createTime,"yyyy-MM-dd"));
+        helper.setText(R.id.tv_item_time,textTime);
         helper.setText(R.id.tv_item_title,item.getTitle());
         helper.setText(R.id.tv_item_content,item.getContent());
 
