@@ -2,6 +2,7 @@ package com.zmm.paintingdays.dagger.component;
 
 import com.zmm.paintingdays.dagger.ActivityScope;
 import com.zmm.paintingdays.dagger.module.PaintingsModule;
+import com.zmm.paintingdays.ui.activity.CalendarActivity;
 import com.zmm.paintingdays.ui.activity.PaintingsInfoActivity;
 import com.zmm.paintingdays.ui.fragment.HistoryFragment;
 import com.zmm.paintingdays.ui.fragment.HomeFragment;
@@ -23,4 +24,6 @@ public interface PaintingsComponent {
     void inject(HistoryFragment historyFragment);
 
     void inject(PaintingsInfoActivity paintingsInfoActivity);
+
+    void inject(CalendarActivity calendarActivity);
 }

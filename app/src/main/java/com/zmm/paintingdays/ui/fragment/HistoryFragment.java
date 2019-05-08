@@ -1,5 +1,6 @@
 package com.zmm.paintingdays.ui.fragment;
 
+import android.content.Intent;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,8 +19,8 @@ import com.zmm.paintingdays.dagger.component.HttpComponent;
 import com.zmm.paintingdays.dagger.module.PaintingsModule;
 import com.zmm.paintingdays.mvp.presenter.PaintingsPresenter;
 import com.zmm.paintingdays.mvp.presenter.contract.PaintingsContract;
+import com.zmm.paintingdays.ui.activity.CalendarActivity;
 import com.zmm.paintingdays.ui.adapter.HistoryAdapter;
-import com.zmm.paintingdays.ui.adapter.HomeAdapter;
 import com.zmm.paintingdays.ui.dialog.SimpleConfirmDialog;
 import com.zmm.paintingdays.ui.widget.MyThumbViewInfo;
 import com.zmm.paintingdays.ui.widget.TitleBar;
@@ -95,7 +96,7 @@ public class HistoryFragment extends BaseFragment<PaintingsPresenter> implements
             @Override
             public void performAction(View view) {
 
-//                mContext.startActivity(new Intent(mContext,DiaryInfoActivity.class));
+                mContext.startActivity(new Intent(mContext,CalendarActivity.class));
             }
         });
 
@@ -127,21 +128,6 @@ public class HistoryFragment extends BaseFragment<PaintingsPresenter> implements
         mPresenter.findAllPaintingsByUid(mUserId,page,size,true);
     }
 
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        System.out.println("HomeFragment onResume");
-
-    }
-
-    @Override
-    protected void onRefresh() {
-        super.onRefresh();
-        System.out.println("HomeFragment onRefresh");
-
-
-    }
 
     @Override
     public void onLoadMore(RefreshLayout refreshLayout) {

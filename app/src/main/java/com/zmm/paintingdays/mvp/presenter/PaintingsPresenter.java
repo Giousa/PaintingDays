@@ -105,4 +105,13 @@ public class PaintingsPresenter extends BasePresenter<PaintingsContract.IPaintin
                     }
                 });
     }
+
+    /**
+     * 根据日期，查询画作
+     * @param userId
+     * @param date
+     */
+    public void findPaintingsByCreateTime(String userId, String date) {
+
+    }
 }
