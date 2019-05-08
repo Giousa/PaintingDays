@@ -3,6 +3,7 @@ package com.zmm.paintingdays.ui.activity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 
 import com.chaychan.library.BottomBarItem;

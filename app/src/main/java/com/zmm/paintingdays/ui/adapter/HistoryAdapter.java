@@ -1,5 +1,6 @@
 package com.zmm.paintingdays.ui.adapter;
 
+import android.view.View;
 import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -26,6 +27,12 @@ public class HistoryAdapter extends BaseQuickAdapter<PaintingsBean,BaseViewHolde
         super(R.layout.item_history);
     }
 
+    private HomeAdapter.OnPaintingsItemClickListener mOnPaintingsItemClickListener;
+
+    public void setOnPaintingsItemClickListener(HomeAdapter.OnPaintingsItemClickListener onPaintingsItemClickListener) {
+        mOnPaintingsItemClickListener = onPaintingsItemClickListener;
+    }
+
     @Override
     protected void convert(BaseViewHolder helper, final PaintingsBean item) {
 
@@ -42,5 +49,32 @@ public class HistoryAdapter extends BaseQuickAdapter<PaintingsBean,BaseViewHolde
 
         GlideUtils.loadImage(mContext,item.getPics(),pic);
 
+        pic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mOnPaintingsItemClickListener != null){
+                    mOnPaintingsItemClickListener.OnPaintingsPicClick(item.getPics());
+                }
+            }
+        });
+
+        pic.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+
+                if(mOnPaintingsItemClickListener != null){
+                    mOnPaintingsItemClickListener.OnPaintingsDelete(item.getId());
+                }
+                return true;
+            }
+        });
+
+    }
+
+    public interface OnPaintingsItemClickListener{
+
+        void OnPaintingsPicClick(String pic);
+
+        void OnPaintingsDelete(String id);
     }
 }

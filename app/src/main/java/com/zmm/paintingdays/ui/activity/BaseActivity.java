@@ -2,10 +2,12 @@ package com.zmm.paintingdays.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -69,7 +71,6 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     }
 
 
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -127,7 +128,6 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     }
 
 
-
     public int getScreenWidth() {
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
@@ -157,8 +157,8 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
 
 
     protected void hideKeyboard(EditText editText) {
-        InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-        if(inputMethodManager.isActive(editText)){
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (inputMethodManager.isActive(editText)) {
             editText.requestFocus();
             inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
@@ -168,9 +168,24 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(this.INPUT_METHOD_SERVICE);
         if (inputMethodManager != null) {
             editText.requestFocus();
-            inputMethodManager.showSoftInput(editText,InputMethodManager.SHOW_FORCED);
+            inputMethodManager.showSoftInput(editText, InputMethodManager.SHOW_FORCED);
 
         }
     }
 
+    /**
+     * 解决全屏切换非全屏闪烁问题
+     */
+    private void smoothSwitchScreen() {
+        // 5.0以上修复了此bug
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            ViewGroup rootView = ((ViewGroup) this.findViewById(android.R.id.content));
+            int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+            int statusBarHeight = getResources().getDimensionPixelSize(resourceId);
+            rootView.setPadding(0, statusBarHeight, 0, 0);
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN);
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
+        }
+    }
 }

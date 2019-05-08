@@ -198,8 +198,8 @@ public class HomeFragment extends BaseFragment<PaintingsPresenter> implements On
                 .setSingleData(myThumbViewInfo)
                 .setCurrentIndex(0)
                 .setDrag(true,0.6f)
-                .setType(GPreviewBuilder.IndicatorType.Number)
-                .setFullscreen(true)
+                .setType(GPreviewBuilder.IndicatorType.Dot)
+                .setFullscreen(false)
                 .start();
     }
 
