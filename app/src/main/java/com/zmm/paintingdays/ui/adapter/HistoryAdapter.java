@@ -27,9 +27,9 @@ public class HistoryAdapter extends BaseQuickAdapter<PaintingsBean,BaseViewHolde
         super(R.layout.item_history);
     }
 
-    private HomeAdapter.OnPaintingsItemClickListener mOnPaintingsItemClickListener;
+    private OnPaintingsItemClickListener mOnPaintingsItemClickListener;
 
-    public void setOnPaintingsItemClickListener(HomeAdapter.OnPaintingsItemClickListener onPaintingsItemClickListener) {
+    public void setOnPaintingsItemClickListener(OnPaintingsItemClickListener onPaintingsItemClickListener) {
         mOnPaintingsItemClickListener = onPaintingsItemClickListener;
     }
 
@@ -53,7 +53,7 @@ public class HistoryAdapter extends BaseQuickAdapter<PaintingsBean,BaseViewHolde
             @Override
             public void onClick(View v) {
                 if(mOnPaintingsItemClickListener != null){
-                    mOnPaintingsItemClickListener.OnPaintingsUpdateClick(item.getPics());
+                    mOnPaintingsItemClickListener.OnPaintingsUpdateClick(item.getPics(),helper.getLayoutPosition());
                 }
             }
         });
@@ -73,7 +73,7 @@ public class HistoryAdapter extends BaseQuickAdapter<PaintingsBean,BaseViewHolde
 
     public interface OnPaintingsItemClickListener{
 
-        void OnPaintingsUpdateClick(String pic);
+        void OnPaintingsUpdateClick(String pic,int position);
 
         void OnPaintingsDeleteClick(String id,int position);
     }

@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.previewlibrary.GPreviewBuilder;
+import com.previewlibrary.enitity.IThumbViewInfo;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
@@ -26,6 +27,7 @@ import com.zmm.paintingdays.ui.widget.TitleBar;
 import com.zmm.paintingdays.utils.ToastUtils;
 import com.zmm.paintingdays.utils.UIUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -196,17 +198,31 @@ public class HomeFragment extends BaseFragment<PaintingsPresenter> implements On
     }
 
     @Override
-    public void OnPaintingsUpdateClick(String pic) {
+    public void OnPaintingsUpdateClick(String pic,int position) {
 
-        MyThumbViewInfo myThumbViewInfo = new MyThumbViewInfo(pic);
+        List<IThumbViewInfo> iThumbViewInfoList = new ArrayList<>();
+        List<PaintingsBean> data = mHomeAdapter.getData();
+        for (PaintingsBean paintingsBean:data) {
+            iThumbViewInfoList.add(new MyThumbViewInfo(paintingsBean.getPics()));
+        }
 
         GPreviewBuilder.from(this)
-                .setSingleData(myThumbViewInfo)
-                .setCurrentIndex(0)
+                .setData(iThumbViewInfoList)
+                .setCurrentIndex(position)
                 .setDrag(true,0.6f)
-                .setType(GPreviewBuilder.IndicatorType.Dot)
+                .setType(GPreviewBuilder.IndicatorType.Number)
                 .setFullscreen(false)
                 .start();
+
+//        MyThumbViewInfo myThumbViewInfo = new MyThumbViewInfo(pic);
+//
+//        GPreviewBuilder.from(this)
+//                .setSingleData(myThumbViewInfo)
+//                .setCurrentIndex(0)
+//                .setDrag(true,0.6f)
+//                .setType(GPreviewBuilder.IndicatorType.Dot)
+//                .setFullscreen(false)
+//                .start();
     }
 
     @Override

@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.previewlibrary.GPreviewBuilder;
+import com.previewlibrary.enitity.IThumbViewInfo;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
@@ -25,6 +26,7 @@ import com.zmm.paintingdays.ui.widget.TitleBar;
 import com.zmm.paintingdays.utils.ToastUtils;
 import com.zmm.paintingdays.utils.UIUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -37,7 +39,7 @@ import butterknife.BindView;
  * Date:2018/11/8
  * Email:65489469@qq.com
  */
-public class HistoryFragment extends BaseFragment<PaintingsPresenter> implements OnRefreshLoadMoreListener, PaintingsContract.PaintingsView, HomeAdapter.OnPaintingsItemClickListener {
+public class HistoryFragment extends BaseFragment<PaintingsPresenter> implements OnRefreshLoadMoreListener, PaintingsContract.PaintingsView, HistoryAdapter.OnPaintingsItemClickListener {
 
 
     @BindView(R.id.title_bar)
@@ -199,16 +201,21 @@ public class HistoryFragment extends BaseFragment<PaintingsPresenter> implements
 
 
     @Override
-    public void OnPaintingsUpdateClick(String pic) {
-        MyThumbViewInfo myThumbViewInfo = new MyThumbViewInfo(pic);
+    public void OnPaintingsUpdateClick(String pic,int position) {
+        List<IThumbViewInfo> iThumbViewInfoList = new ArrayList<>();
+        List<PaintingsBean> data = mHistoryAdapter.getData();
+        for (PaintingsBean paintingsBean:data) {
+            iThumbViewInfoList.add(new MyThumbViewInfo(paintingsBean.getPics()));
+        }
 
         GPreviewBuilder.from(this)
-                .setSingleData(myThumbViewInfo)
-                .setCurrentIndex(0)
+                .setData(iThumbViewInfoList)
+                .setCurrentIndex(position)
                 .setDrag(true,0.6f)
-                .setType(GPreviewBuilder.IndicatorType.Dot)
+                .setType(GPreviewBuilder.IndicatorType.Number)
                 .setFullscreen(false)
                 .start();
+
     }
 
     @Override
