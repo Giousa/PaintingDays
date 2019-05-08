@@ -181,7 +181,7 @@ public class DiaryFragment extends BaseFragment<DiaryPresenter> implements Diary
     }
 
     @Override
-    public void deleteSuccess(int position) {
+    public void deleteDiarySuccess(int position) {
         ToastUtils.SimpleToast("日记删除成功");
         mDiaryAdapter.remove(position);
     }

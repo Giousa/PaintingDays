@@ -161,7 +161,7 @@ public class DiaryInfoActivity extends BaseActivity<DiaryPresenter> implements D
     }
 
     @Override
-    public void deleteSuccess(int position) {
+    public void deleteDiarySuccess(int position) {
 
     }
 

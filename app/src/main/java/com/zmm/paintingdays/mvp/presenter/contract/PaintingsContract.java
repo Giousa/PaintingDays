@@ -22,6 +22,8 @@ public interface PaintingsContract {
         Observable<BaseBean<List<PaintingsBean>>> findAllPaintingsByUid(String uId,int page,int size);
 
         Observable<BaseBean<PaintingsBean>> addPaintings(String uId,String username,String title,String content, String tags,int jurisdiction, MultipartBody.Part file);
+
+        Observable<BaseBean<String>> deletePaintingsById(String id);
     }
 
     interface PaintingsView extends BaseView{
@@ -35,5 +37,7 @@ public interface PaintingsContract {
         void addPaintingsSuccess(PaintingsBean paintingsBean);
 
         void addPaintingsFailure();
+
+        void deletePaintingsByIdSuccess(int position);
     }
 }

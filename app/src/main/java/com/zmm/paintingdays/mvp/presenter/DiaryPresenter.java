@@ -83,7 +83,7 @@ public class DiaryPresenter extends BasePresenter<DiaryContract.IDiaryModel,Diar
                 .subscribe(new ErrorHandlerSubscriber<String>() {
                     @Override
                     public void onNext(String s) {
-                        mView.deleteSuccess(position);
+                        mView.deleteDiarySuccess(position);
                     }
                 });
     }

@@ -31,7 +31,7 @@ public class HomeAdapter extends BaseQuickAdapter<PaintingsBean,BaseViewHolder>{
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, final PaintingsBean item) {
+    protected void convert(final BaseViewHolder helper, final PaintingsBean item) {
 
         String createTime = item.getCreateTime();
 
@@ -50,7 +50,7 @@ public class HomeAdapter extends BaseQuickAdapter<PaintingsBean,BaseViewHolder>{
             @Override
             public void onClick(View v) {
                 if(mOnPaintingsItemClickListener != null){
-                    mOnPaintingsItemClickListener.OnPaintingsPicClick(item.getPics());
+                    mOnPaintingsItemClickListener.OnPaintingsUpdateClick(item.getPics());
                 }
             }
         });
@@ -60,7 +60,7 @@ public class HomeAdapter extends BaseQuickAdapter<PaintingsBean,BaseViewHolder>{
             public boolean onLongClick(View v) {
 
                 if(mOnPaintingsItemClickListener != null){
-                    mOnPaintingsItemClickListener.OnPaintingsDelete(item.getId());
+                    mOnPaintingsItemClickListener.OnPaintingsDeleteClick(item.getId(),helper.getLayoutPosition());
                 }
                 return true;
             }
@@ -70,8 +70,8 @@ public class HomeAdapter extends BaseQuickAdapter<PaintingsBean,BaseViewHolder>{
 
     public interface OnPaintingsItemClickListener{
 
-        void OnPaintingsPicClick(String pic);
+        void OnPaintingsUpdateClick(String pic);
 
-        void OnPaintingsDelete(String id);
+        void OnPaintingsDeleteClick(String id,int position);
     }
 }

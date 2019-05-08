@@ -33,4 +33,9 @@ public class PaintingsModel implements PaintingsContract.IPaintingsModel{
     public Observable<BaseBean<PaintingsBean>> addPaintings(String uId, String username, String title, String content, String tags, int jurisdiction, MultipartBody.Part file) {
         return mApiService.addPaintings(uId,username,title,content,tags,jurisdiction,file);
     }
+
+    @Override
+    public Observable<BaseBean<String>> deletePaintingsById(String id) {
+        return mApiService.deletePaintingsById(id);
+    }
 }

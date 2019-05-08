@@ -272,4 +272,9 @@ public class PaintingsInfoActivity extends BaseActivity<PaintingsPresenter> impl
         }
     }
 
+    @Override
+    public void deletePaintingsByIdSuccess(int position) {
+
+    }
+
 }

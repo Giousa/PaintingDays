@@ -43,7 +43,7 @@ public interface DiaryContract {
 
         void addDiarySuccess(DiaryBean diaryBean);
 
-        void deleteSuccess(int position);
+        void deleteDiarySuccess(int position);
 
         void findDiaryByIdSuccess(DiaryBean diaryBean);
 

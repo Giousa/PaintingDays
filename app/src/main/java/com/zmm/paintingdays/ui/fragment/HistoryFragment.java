@@ -1,14 +1,9 @@
 package com.zmm.paintingdays.ui.fragment;
 
-import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.previewlibrary.GPreviewBuilder;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -24,8 +19,10 @@ import com.zmm.paintingdays.mvp.presenter.PaintingsPresenter;
 import com.zmm.paintingdays.mvp.presenter.contract.PaintingsContract;
 import com.zmm.paintingdays.ui.adapter.HistoryAdapter;
 import com.zmm.paintingdays.ui.adapter.HomeAdapter;
+import com.zmm.paintingdays.ui.dialog.SimpleConfirmDialog;
 import com.zmm.paintingdays.ui.widget.MyThumbViewInfo;
 import com.zmm.paintingdays.ui.widget.TitleBar;
+import com.zmm.paintingdays.utils.ToastUtils;
 import com.zmm.paintingdays.utils.UIUtils;
 
 import java.util.List;
@@ -33,8 +30,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * Description:
@@ -197,7 +192,14 @@ public class HistoryFragment extends BaseFragment<PaintingsPresenter> implements
     }
 
     @Override
-    public void OnPaintingsPicClick(String pic) {
+    public void deletePaintingsByIdSuccess(int position) {
+        ToastUtils.SimpleToast("画作删除成功");
+        mHistoryAdapter.remove(position);
+    }
+
+
+    @Override
+    public void OnPaintingsUpdateClick(String pic) {
         MyThumbViewInfo myThumbViewInfo = new MyThumbViewInfo(pic);
 
         GPreviewBuilder.from(this)
@@ -205,12 +207,29 @@ public class HistoryFragment extends BaseFragment<PaintingsPresenter> implements
                 .setCurrentIndex(0)
                 .setDrag(true,0.6f)
                 .setType(GPreviewBuilder.IndicatorType.Dot)
-                .setFullscreen(true)
+                .setFullscreen(false)
                 .start();
     }
 
     @Override
-    public void OnPaintingsDelete(String id) {
+    public void OnPaintingsDeleteClick(final String id, final int position) {
+        final SimpleConfirmDialog simpleConfirmDialog = new SimpleConfirmDialog(mContext,"是否删除此图片？");
+
+        simpleConfirmDialog.setOnClickListener(new SimpleConfirmDialog.OnClickListener() {
+            @Override
+            public void onCancel() {
+                simpleConfirmDialog.dismiss();
+            }
+
+            @Override
+            public void onConfirm() {
+                simpleConfirmDialog.dismiss();
+                mPresenter.deletePaintingsById(id,position);
+            }
+        });
+
+        simpleConfirmDialog.show();
 
     }
+
 }

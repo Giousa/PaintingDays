@@ -89,4 +89,20 @@ public class PaintingsPresenter extends BasePresenter<PaintingsContract.IPaintin
                 });
 
     }
+
+    /**
+     * 删除画作
+     * @param id
+     * @param position
+     */
+    public void deletePaintingsById(String id, final int position) {
+        mModel.deletePaintingsById(id)
+                .compose(RxHttpResponseCompat.<String>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<String>() {
+                    @Override
+                    public void onNext(String s) {
+                        mView.deletePaintingsByIdSuccess(position);
+                    }
+                });
+    }
 }

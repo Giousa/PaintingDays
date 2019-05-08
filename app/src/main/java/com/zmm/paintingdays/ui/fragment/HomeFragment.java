@@ -20,6 +20,7 @@ import com.zmm.paintingdays.mvp.presenter.PaintingsPresenter;
 import com.zmm.paintingdays.mvp.presenter.contract.PaintingsContract;
 import com.zmm.paintingdays.ui.activity.PaintingsInfoActivity;
 import com.zmm.paintingdays.ui.adapter.HomeAdapter;
+import com.zmm.paintingdays.ui.dialog.SimpleConfirmDialog;
 import com.zmm.paintingdays.ui.widget.MyThumbViewInfo;
 import com.zmm.paintingdays.ui.widget.TitleBar;
 import com.zmm.paintingdays.utils.ToastUtils;
@@ -181,7 +182,6 @@ public class HomeFragment extends BaseFragment<PaintingsPresenter> implements On
 
     @Override
     public void addPaintingsSuccess(PaintingsBean paintingsBean) {
-
     }
 
     @Override
@@ -190,7 +190,13 @@ public class HomeFragment extends BaseFragment<PaintingsPresenter> implements On
     }
 
     @Override
-    public void OnPaintingsPicClick(String pic) {
+    public void deletePaintingsByIdSuccess(int position) {
+        ToastUtils.SimpleToast("画作删除成功");
+        mHomeAdapter.remove(position);
+    }
+
+    @Override
+    public void OnPaintingsUpdateClick(String pic) {
 
         MyThumbViewInfo myThumbViewInfo = new MyThumbViewInfo(pic);
 
@@ -204,7 +210,23 @@ public class HomeFragment extends BaseFragment<PaintingsPresenter> implements On
     }
 
     @Override
-    public void OnPaintingsDelete(String id) {
-        System.out.println("删除图片");
+    public void OnPaintingsDeleteClick(final String id,final int position) {
+
+        final SimpleConfirmDialog simpleConfirmDialog = new SimpleConfirmDialog(mContext,"是否删除此图片？");
+
+        simpleConfirmDialog.setOnClickListener(new SimpleConfirmDialog.OnClickListener() {
+            @Override
+            public void onCancel() {
+                simpleConfirmDialog.dismiss();
+            }
+
+            @Override
+            public void onConfirm() {
+                simpleConfirmDialog.dismiss();
+                mPresenter.deletePaintingsById(id,position);
+            }
+        });
+
+        simpleConfirmDialog.show();
     }
 }

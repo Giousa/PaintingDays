@@ -138,6 +138,8 @@ public interface ApiService {
                                                      @Query("jurisdiction") int jurisdiction,
                                                      @Part() MultipartBody.Part file);
 
+    @GET("paintings/deletePaintings/{id}")
+    Observable<BaseBean<String>> deletePaintingsById(@Path("id") String id);
 
     /**
      * -----------------------------相关界面接口-----------------------------
@@ -166,7 +168,6 @@ public interface ApiService {
     Observable<BaseBean<List<DiaryBean>>> findAllDiaryByUid(@Query("uId")String uId,
                                                       @Query("page")int page,
                                                       @Query("size")int size);
-
 
 
 }
