@@ -60,6 +60,13 @@ public class TimeUtils {
             return DateUtils.longToString(time,null);
         }
         if (diff > day) {
+
+            r = (diff / day);
+            if(r == 1){
+                return "昨天";
+            }else if(r == 2){
+                return "前天";
+            }
             return DateUtils.longToString(time,null);
         }
         if (diff > hour) {
@@ -87,18 +94,15 @@ public class TimeUtils {
         }
         if (diff > day) {
             r = (diff / day);
-            return r + "天前";
-        }
-        if (diff > hour) {
-            r = (diff / hour);
-            return r + "个小时前";
-        }
-        if (diff > minute) {
-            r = (diff / minute);
-            return r + "分钟前";
+            if(r == 1){
+                return "昨天";
+            }else if(r == 2){
+                return "前天";
+            }
+            return DateUtils.longToString(time,null);
         }
 
-        return "刚刚";
+        return "今天";
     }
 
 
