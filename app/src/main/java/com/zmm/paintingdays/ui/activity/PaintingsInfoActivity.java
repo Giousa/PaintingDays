@@ -145,16 +145,16 @@ public class PaintingsInfoActivity extends BaseActivity<PaintingsPresenter> impl
 
                 mShapeLoadingDialog.show();
 
-                try {
-                    Bitmap bitmap = PictureCompressUtil.revitionImageSize(mImages.get(0).path);
-                    String newPath = PictureCompressUtil.saveBitmapFile(bitmap, "paintings/"+mImages.get(0).name);
+//                try {
+//                    //降低分辨率
+//                    Bitmap bitmap = PictureCompressUtil.revitionImageSize(mImages.get(0).path);
+//                    String newPath = PictureCompressUtil.saveBitmapFile(bitmap, "paintings/"+mImages.get(0).name);
+//                    mPresenter.addPaintings(userBean.getId(),userBean.getUsername(),title,content,mTags,mJurisdiction,"/storage/emulated/0/"+newPath);
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
 
-//                    mPresenter.addPaintings(userBean.getId(),userBean.getUsername(),title,content,mTags,mJurisdiction,mImages.get(0).path);
-                    mPresenter.addPaintings(userBean.getId(),userBean.getUsername(),title,content,mTags,mJurisdiction,"/storage/emulated/0/"+newPath);
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                mPresenter.addPaintings(userBean.getId(),userBean.getUsername(),title,content,mTags,mJurisdiction,mImages.get(0).path);
 
             } else {
                 ToastUtils.SimpleToast("请选择图片");
