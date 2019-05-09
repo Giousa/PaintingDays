@@ -106,7 +106,7 @@ public class DiaryInfoActivity extends BaseActivity<DiaryPresenter> implements D
     }
 
     private void timeSelect() {
-        DateSelectView dateSelectView = new DateSelectView(mContext,mLlRoot,mScreenWidth,null);
+        DateSelectView dateSelectView = new DateSelectView(mContext,mLlRoot,mScreenWidth,mTvDiaryTime.getText().toString());
 
         dateSelectView.setOnDateClickListener(new DateSelectView.OnDateClickListener() {
             @Override
