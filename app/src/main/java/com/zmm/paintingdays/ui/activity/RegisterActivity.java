@@ -141,7 +141,7 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
                 register(username,password,verifyCode);
             }else if(mParam == 2){
                 ToastUtils.SimpleToast("重置密码");
-//                resetPassword(username,password,verifyCode);
+                resetPassword(username,password,verifyCode);
             }else {
                 modifyPassword(username,password,verifyCode);
             }

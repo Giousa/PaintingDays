@@ -24,6 +24,7 @@
         app:title="退出登录" />
 
     <com.zmm.paintingdays.ui.widget.CustomTitleItemView
+        android:visibility="gone"
         android:id="@+id/custom_title_item_delete"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.necer.ncalendar.calendar.NCalendar;
 import com.necer.ncalendar.listener.OnCalendarChangedListener;
+import com.previewlibrary.GPreviewBuilder;
+import com.previewlibrary.enitity.IThumbViewInfo;
 import com.zmm.paintingdays.R;
 import com.zmm.paintingdays.bean.PaintingsBean;
 import com.zmm.paintingdays.bean.UserBean;
@@ -19,10 +21,12 @@ import com.zmm.paintingdays.dagger.module.PaintingsModule;
 import com.zmm.paintingdays.mvp.presenter.PaintingsPresenter;
 import com.zmm.paintingdays.mvp.presenter.contract.PaintingsContract;
 import com.zmm.paintingdays.ui.adapter.HomeAdapter;
+import com.zmm.paintingdays.ui.widget.MyThumbViewInfo;
 import com.zmm.paintingdays.utils.UIUtils;
 
 import org.joda.time.DateTime;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -36,7 +40,7 @@ import butterknife.OnClick;
  * Date:2019/5/8
  * Email:65489469@qq.com
  */
-public class CalendarActivity extends BaseActivity<PaintingsPresenter> implements PaintingsContract.PaintingsView, HomeAdapter.OnPaintingsItemClickListener, OnCalendarChangedListener {
+public class CalendarActivity extends BaseActivity<PaintingsPresenter> implements PaintingsContract.PaintingsView, OnCalendarChangedListener, HomeAdapter.OnPaintingsItemClickListener {
 
     @BindView(R.id.tv_month)
     TextView mTvMonth;
@@ -97,6 +101,8 @@ public class CalendarActivity extends BaseActivity<PaintingsPresenter> implement
         mHomeAdapter.setEmptyView(R.layout.empty_content, mRvList);
 
         mHomeAdapter.setOnPaintingsItemClickListener(this);
+
+
     }
 
     @OnClick({R.id.iv_back, R.id.tv_add})
@@ -152,16 +158,6 @@ public class CalendarActivity extends BaseActivity<PaintingsPresenter> implement
     }
 
     @Override
-    public void OnPaintingsUpdateClick(String pic, int position) {
-
-    }
-
-    @Override
-    public void OnPaintingsDeleteClick(String id, int position) {
-
-    }
-
-    @Override
     public void onCalendarChanged(DateTime dateTime) {
         mDateTime = dateTime;
 
@@ -184,4 +180,26 @@ public class CalendarActivity extends BaseActivity<PaintingsPresenter> implement
         }
     }
 
+    @Override
+    public void OnPaintingsItemClick(String pic, int position) {
+        List<IThumbViewInfo> iThumbViewInfoList = new ArrayList<>();
+        List<PaintingsBean> data = mHomeAdapter.getData();
+        for (PaintingsBean paintingsBean:data) {
+            iThumbViewInfoList.add(new MyThumbViewInfo(paintingsBean.getPics()));
+        }
+
+        GPreviewBuilder.from(this)
+                .setData(iThumbViewInfoList)
+                .setCurrentIndex(position)
+                .setDrag(true,0.6f)
+                .setType(GPreviewBuilder.IndicatorType.Number)
+                .setFullscreen(false)
+                .start();
+
+    }
+
+    @Override
+    public void OnPaintingsItemLongClick(String id, int position) {
+
+    }
 }

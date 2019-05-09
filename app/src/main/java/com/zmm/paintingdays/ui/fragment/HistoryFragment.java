@@ -54,7 +54,7 @@ public class HistoryFragment extends BaseFragment<PaintingsPresenter> implements
     HistoryAdapter mHistoryAdapter;
 
     private int page = 0;
-    private int size = 4;
+    private int size = 10;
     private String mUserId;
 
 
@@ -187,7 +187,7 @@ public class HistoryFragment extends BaseFragment<PaintingsPresenter> implements
 
 
     @Override
-    public void OnPaintingsUpdateClick(String pic,int position) {
+    public void OnPaintingsItemClick(String pic,int position) {
         List<IThumbViewInfo> iThumbViewInfoList = new ArrayList<>();
         List<PaintingsBean> data = mHistoryAdapter.getData();
         for (PaintingsBean paintingsBean:data) {
@@ -205,7 +205,7 @@ public class HistoryFragment extends BaseFragment<PaintingsPresenter> implements
     }
 
     @Override
-    public void OnPaintingsDeleteClick(final String id, final int position) {
+    public void OnPaintingsItemLongClick(final String id, final int position) {
         final SimpleConfirmDialog simpleConfirmDialog = new SimpleConfirmDialog(mContext,"是否删除此图片？");
 
         simpleConfirmDialog.setOnClickListener(new SimpleConfirmDialog.OnClickListener() {

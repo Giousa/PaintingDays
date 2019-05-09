@@ -53,7 +53,7 @@ public class HistoryAdapter extends BaseQuickAdapter<PaintingsBean,BaseViewHolde
             @Override
             public void onClick(View v) {
                 if(mOnPaintingsItemClickListener != null){
-                    mOnPaintingsItemClickListener.OnPaintingsUpdateClick(item.getPics(),helper.getLayoutPosition());
+                    mOnPaintingsItemClickListener.OnPaintingsItemClick(item.getPics(),helper.getLayoutPosition());
                 }
             }
         });
@@ -63,7 +63,7 @@ public class HistoryAdapter extends BaseQuickAdapter<PaintingsBean,BaseViewHolde
             public boolean onLongClick(View v) {
 
                 if(mOnPaintingsItemClickListener != null){
-                    mOnPaintingsItemClickListener.OnPaintingsDeleteClick(item.getId(),helper.getLayoutPosition());
+                    mOnPaintingsItemClickListener.OnPaintingsItemLongClick(item.getId(),helper.getLayoutPosition());
                 }
                 return true;
             }
@@ -73,8 +73,8 @@ public class HistoryAdapter extends BaseQuickAdapter<PaintingsBean,BaseViewHolde
 
     public interface OnPaintingsItemClickListener{
 
-        void OnPaintingsUpdateClick(String pic,int position);
+        void OnPaintingsItemClick(String pic,int position);
 
-        void OnPaintingsDeleteClick(String id,int position);
+        void OnPaintingsItemLongClick(String id,int position);
     }
 }

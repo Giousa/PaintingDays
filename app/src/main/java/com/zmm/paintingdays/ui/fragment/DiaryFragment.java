@@ -53,7 +53,7 @@ public class DiaryFragment extends BaseFragment<DiaryPresenter> implements Diary
 
 
     private int page = 0;
-    private int size = 4;
+    private int size = 10;
     private String mUserId;
 
 
