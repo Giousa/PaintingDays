@@ -58,6 +58,8 @@ public class CalendarActivity extends BaseActivity<PaintingsPresenter> implement
     private String mUserId;
     private DateTime mDateTime;
 
+    private boolean isUpdate;
+
     @Override
     protected int setLayout() {
         return R.layout.activity_calendar;
@@ -109,10 +111,13 @@ public class CalendarActivity extends BaseActivity<PaintingsPresenter> implement
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
+                if(isUpdate){
+                    setResult(2);
+                }
                 finish();
                 break;
             case R.id.tv_add:
-
+                startActivityForResult(new Intent(mContext, PaintingsInfoActivity.class),1);
                 break;
         }
     }
@@ -123,6 +128,7 @@ public class CalendarActivity extends BaseActivity<PaintingsPresenter> implement
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == 1 && resultCode == 2){
+            isUpdate = true;
             requestCheckedData();
         }
     }

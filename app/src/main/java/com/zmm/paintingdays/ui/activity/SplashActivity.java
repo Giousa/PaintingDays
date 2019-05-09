@@ -27,8 +27,6 @@ import io.reactivex.functions.Consumer;
 public class SplashActivity extends BaseActivity {
 
 
-    @BindView(R.id.sub_image)
-    SubsamplingScaleImageView mSubImage;
 
     @Override
     protected int setLayout() {
@@ -42,15 +40,6 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     protected void init() {
-
-        //加载图片，和初始加载比例
-        mSubImage.setImage(ImageSource.resource(R.drawable.splash_bg),new ImageViewState(1.2f, new PointF(0, 0), 0));
-
-        //禁止缩放
-        mSubImage.setZoomEnabled(false);
-
-        //禁止滑动
-        mSubImage.setPanEnabled(false);
 
 
         Observable.timer(2, TimeUnit.SECONDS).subscribe(new Consumer<Long>() {
